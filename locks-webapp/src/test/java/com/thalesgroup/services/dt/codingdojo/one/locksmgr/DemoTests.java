@@ -29,7 +29,7 @@ public class DemoTests    {
 	    public  void startServer() throws Exception {
 	    	if (server==null) {
 	    		
-
+	    		
 	    	server = new Server(8080);
 			server.setStopAtShutdown(true);
 	
