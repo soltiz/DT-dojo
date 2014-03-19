@@ -1,8 +1,6 @@
 package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import javax.ws.rs.WebApplicationException;
 
@@ -11,25 +9,24 @@ import junit.framework.Assert;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.services.dt.codingdojo.one.Lock;
 import com.thalesgroup.services.dt.codingdojo.one.LockManager;
-import com.thalesgroup.services.dt.codingdojo.one.LockService;
-import com.thalesgroup.services.dt.codingdojo.one.LockServiceImpl;
 
-public class DojoTest {
-	private static Logger log = LoggerFactory.getLogger(DojoTest.class);
+public class LockManagerTest {
 
 	@Before
-	public void initTest(){
+	public void setUp() throws Exception {
 		LockManager.getInstance().reset();
 	}
 	
 	@Test
-	public void testInit(){
+	public void testGetInstance() {
+		fail("Not yet implemented");
+	}
 
+	@Test
+	public void testReset() {
 		String subject = "subject";
 		String owner = "owner";
 		LockManager manager = LockManager.getInstance();
@@ -37,18 +34,36 @@ public class DojoTest {
 		Assert.assertEquals(1, LockManager.getInstance().getCountElement());
 		LockManager.getInstance().reset();
 		Assert.assertEquals(0, LockManager.getInstance().getCountElement());
+	}
+
+	@Test
+	public void testGetCountElement() {
+		String subject = "subject";
+		String owner = "owner";
+		LockManager manager = LockManager.getInstance();
+		Assert.assertEquals(0, LockManager.getInstance().getCountElement());
+		manager.putLock(subject, owner);
+		Assert.assertEquals(1, LockManager.getInstance().getCountElement());
+	}
+	
+
+	@Test
+	public void testGetLock() {
+		String subject = "subject";
+		String owner1 = "owner1";
+		LockManager manager = LockManager.getInstance();
+		//TODO: refactorer pour simplifier et eviter les copier-coller
 		
+		manager.putLock(subject, owner1);
+		
+		Lock rereadLock = manager.getLock(subject);
+		assertEquals(subject,rereadLock.getSubject());
+		assertEquals(owner1,rereadLock.getOwner());
+	
 	}
 	
 	@Test
-	public void sayHello() {
-		log.debug("Hello from test #{}", 0);
-		assertTrue(true);
-	}
-	
-	
-	@Test
-	public void testPutVerrou() {
+	public void testPutLock() {
 
 		String subject = "subject";
 		String owner = "owner";
@@ -64,7 +79,7 @@ public class DojoTest {
 	}
 
 	@Test
-	public void testPut2Verrous() {
+	public void testPutLockIdempotence() {
 		String subject = "subject";
 		String owner = "owner";
 		LockManager manager = LockManager.getInstance();
@@ -76,7 +91,7 @@ public class DojoTest {
 	}
 
 	@Test
-	public void testPut1subject2owners() {
+	public void testPutLock1subject2owners() {
 		String subject = "subject";
 		String owner1 = "owner1";
 		String owner2 = "owner2";
@@ -92,51 +107,6 @@ public class DojoTest {
 					.getStatus());
 		}
 
-	}
-	@Test
-	public void getExistingLockDetail() {
-		String subject = "subject";
-		String owner1 = "owner1";
-		LockManager manager = LockManager.getInstance();
-		//TODO: refactorer pour simplifier et eviter les copier-coller
-		
-		manager.putLock(subject, owner1);
-		
-		Lock rereadLock = manager.getLock(subject);
-		assertEquals(subject,rereadLock.getSubject());
-		assertEquals(owner1,rereadLock.getOwner());
-	
-	}
-	
-	@Test
-	public void getExistingLockExistingSubject() {
-		String subject = "subject";
-		String owner1 = "owner1";
-		LockService ls = new LockServiceImpl();
-		//TODO: refactorer pour simplifier et eviter les copier-coller
-		
-		ls.putLock(subject, owner1);
-		
-		Lock lock2 = ls.getLock(subject);
-		
-		assertEquals(owner1,lock2.getOwner());
-		assertEquals(subject,lock2.getSubject());
-	}
-	
-	@Test
-	public void getNonExistingLockDetail() {
-		
-		String subject = "subject";
-		LockService ls = new LockServiceImpl();
-		try {
-			ls.getLock(subject);
-			fail();
-			
-		} catch (WebApplicationException we) {
-			Assert.assertEquals(HttpStatus.NOT_FOUND_404, we.getResponse()
-					.getStatus());
-		}
-		
 	}
 
 }
