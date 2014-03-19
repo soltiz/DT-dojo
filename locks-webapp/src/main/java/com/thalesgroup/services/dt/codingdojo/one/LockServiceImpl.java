@@ -1,24 +1,24 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
-import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 
-
+import org.eclipse.jetty.http.HttpStatus;
 
 public class LockServiceImpl implements LockService {
 
 	@Override
-	public DemoObject getOneObject(String option, String objectName) {
-
-		if (objectName.contentEquals("doesNotExist")) {
-			NotFoundException e = new NotFoundException();
-			throw e;
-		}
-		DemoObject o = new DemoObject(objectName + "_" + option);
-		return o;
+	public Lock putLock(String subject, String owner) {
+		return LockManager.getInstance().putLock(subject, owner);
 	}
 
 	@Override
-	public Lock getLock(String subject, String owner) {
-		return LockManager.getInstance().putLock(subject, owner);
+	public Lock getLock(String subject) throws WebApplicationException{
+		Lock lock = LockManager.getInstance().getLock(subject);
+		
+		if(lock == null) {
+			throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+		}
+
+		return lock;
 	}
 }

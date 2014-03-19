@@ -8,7 +8,7 @@ import javax.ws.rs.WebApplicationException;
 public class LockManager {
 
 	private static LockManager lockManager = null;
-	
+
 	public static LockManager getInstance() {
 		if (LockManager.lockManager == null) {
 			LockManager.lockManager = new LockManager();
@@ -16,8 +16,9 @@ public class LockManager {
 		return LockManager.lockManager;
 	}
 
-	private LockManager() {}
-	
+	private LockManager() {
+	}
+
 	Map<String, Lock> locksElements = new HashMap<>();
 
 	public Lock putLock(String subject, String owner)
@@ -39,15 +40,18 @@ public class LockManager {
 		}
 		return lock;
 	}
-	
+
 	public void reset() {
 		locksElements.clear();
 	}
 
-
 	public int getCountElement() {
-		// TODO Auto-generated method stub
 		return locksElements.size();
+	}
+
+	public Lock getLock(String subject) {
+		// FIXME:renvoyer un clone car objet mutable
+		return locksElements.get(subject);
 	}
 
 }

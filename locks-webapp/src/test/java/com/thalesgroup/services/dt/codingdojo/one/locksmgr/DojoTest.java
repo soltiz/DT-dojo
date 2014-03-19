@@ -1,6 +1,8 @@
 package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.ws.rs.WebApplicationException;
 
@@ -14,9 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.services.dt.codingdojo.one.Lock;
 import com.thalesgroup.services.dt.codingdojo.one.LockManager;
+import com.thalesgroup.services.dt.codingdojo.one.LockService;
+import com.thalesgroup.services.dt.codingdojo.one.LockServiceImpl;
 
-public class DojoTests {
-	private static Logger log = LoggerFactory.getLogger(DojoTests.class);
+public class DojoTest {
+	private static Logger log = LoggerFactory.getLogger(DojoTest.class);
 
 	@Before
 	public void initTest(){
@@ -29,7 +33,7 @@ public class DojoTests {
 		String subject = "subject";
 		String owner = "owner";
 		LockManager manager = LockManager.getInstance();
-		Lock lock = manager.putLock(subject, owner);
+		manager.putLock(subject, owner);
 		Assert.assertEquals(1, LockManager.getInstance().getCountElement());
 		LockManager.getInstance().reset();
 		Assert.assertEquals(0, LockManager.getInstance().getCountElement());
@@ -81,13 +85,58 @@ public class DojoTests {
 		Lock lock1 = manager.putLock(subject, owner1);
 		Assert.assertNotNull(lock1);
 		try {
-			Lock lock2 = manager.putLock(subject, owner2);
+			manager.putLock(subject, owner2);
 			Assert.fail();
 		} catch (WebApplicationException we) {
 			Assert.assertEquals(HttpStatus.CONFLICT_409, we.getResponse()
 					.getStatus());
 		}
 
+	}
+	@Test
+	public void getExistingLockDetail() {
+		String subject = "subject";
+		String owner1 = "owner1";
+		LockManager manager = LockManager.getInstance();
+		//TODO: refactorer pour simplifier et eviter les copier-coller
+		
+		manager.putLock(subject, owner1);
+		
+		Lock rereadLock = manager.getLock(subject);
+		assertEquals(subject,rereadLock.getSubject());
+		assertEquals(owner1,rereadLock.getOwner());
+	
+	}
+	
+	@Test
+	public void getExistingLockExistingSubject() {
+		String subject = "subject";
+		String owner1 = "owner1";
+		LockService ls = new LockServiceImpl();
+		//TODO: refactorer pour simplifier et eviter les copier-coller
+		
+		ls.putLock(subject, owner1);
+		
+		Lock lock2 = ls.getLock(subject);
+		
+		assertEquals(owner1,lock2.getOwner());
+		assertEquals(subject,lock2.getSubject());
+	}
+	
+	@Test
+	public void getNonExistingLockDetail() {
+		
+		String subject = "subject";
+		LockService ls = new LockServiceImpl();
+		try {
+			ls.getLock(subject);
+			fail();
+			
+		} catch (WebApplicationException we) {
+			Assert.assertEquals(HttpStatus.NOT_FOUND_404, we.getResponse()
+					.getStatus());
+		}
+		
 	}
 
 }

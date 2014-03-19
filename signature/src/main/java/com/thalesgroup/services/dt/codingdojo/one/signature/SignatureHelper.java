@@ -6,19 +6,21 @@ public class SignatureHelper {
 	private static int nbRunningSignatures=0;
 	public static long signatureOf(String dataToSign) {
 		long signature=1;
+		long takestime=1;
 		synchronized(privateKey) {
 			nbRunningSignatures++;
-			if (nbRunningSignatures>1) {
-				throw new RuntimeException("Multithread is badly supported by signature library : unable to run more than 1 parallel computation");
+			if (nbRunningSignatures>2) {
+				throw new RuntimeException("Multithread is badly supported by signature library : unable to run more than 2 parallel computation");
 			}
 		}
 		StringBuilder shouldTakeSomeTime = new StringBuilder();
 		for (int i=0;i<20000;i++) {
-			shouldTakeSomeTime.append(dataToSign);
+			shouldTakeSomeTime=shouldTakeSomeTime.append(dataToSign);
 		}
 		  for (char ch : shouldTakeSomeTime.toString().toCharArray()){
 			  int ascii=(int)ch;
-			  signature=((long) Math.pow(ascii+privateKey,Math.pow(signature*privateKey,privateKey))) | ((long)(Math.sqrt(signature))*privateKey);
+			  signature=(signature*2)+3*ascii;
+			  takestime=((long) Math.pow(ascii+privateKey,Math.pow(takestime*privateKey,privateKey))) 	  | ((long)(Math.sqrt(takestime))*privateKey);
 			  
 		    }
 		  synchronized(privateKey) {

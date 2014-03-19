@@ -9,13 +9,19 @@ import javax.ws.rs.QueryParam;
 @Path("/Locks")
 public interface LockService {
 
-	@GET
-	@Path("/{oneparam}")
-	public DemoObject getOneObject(@QueryParam("paramtwo") String option,
-			@PathParam("oneparam") String objectName);
+//	@GET
+//	@Path("/{oneparam}")
+//	public DemoObject getOneObject(@QueryParam("paramtwo") String option,
+//			@PathParam("oneparam") String objectName);
 	
 	@PUT
 	@Path("/{subject}")
-	public Lock getLock(@PathParam("subject") String subject,
+	public Lock putLock(@PathParam("subject") String subject,
 			@QueryParam("owner") String owner);
+	
+	@GET
+	@Path("/{subject}")
+	public Lock getLock(@PathParam("subject") String subject);
+	
+	
 }
