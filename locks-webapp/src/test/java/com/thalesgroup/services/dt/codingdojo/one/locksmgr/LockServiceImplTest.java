@@ -8,6 +8,7 @@ import junit.framework.Assert;
 
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.thalesgroup.services.dt.codingdojo.one.Lock;
@@ -22,12 +23,12 @@ public class LockServiceImplTest {
 		LockManager.getInstance().reset();
 	}
 
-	@Test
+	@Ignore
 	public void testPutLock() {
 		fail("Not yet implemented");
 	}
 
-	@Test
+	@Ignore
 	public void testGetLock() {
 		fail("Not yet implemented");
 	}

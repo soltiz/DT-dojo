@@ -8,7 +8,7 @@ public class LockServiceImpl implements LockService {
 
 	@Override
 	public Lock putLock(String subject, String owner) {
-		return LockManager.getInstance().putLock(subject, owner);
+		return LockManager.getInstance().putLock(subject, owner, LockManager.DEFAULT_TTL);
 	}
 
 	@Override

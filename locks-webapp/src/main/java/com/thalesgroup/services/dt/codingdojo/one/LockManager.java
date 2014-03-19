@@ -1,5 +1,7 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +10,9 @@ import javax.ws.rs.WebApplicationException;
 public class LockManager {
 
 	private static LockManager lockManager = null;
+	
+	public static final int MAX_TTL = 3600;
+	public static final int DEFAULT_TTL = MAX_TTL;
 
 	public static LockManager getInstance() {
 		if (LockManager.lockManager == null) {
@@ -21,7 +26,7 @@ public class LockManager {
 
 	Map<String, Lock> locksElements = new HashMap<>();
 
-	public Lock putLock(String subject, String owner)
+	public Lock putLock(String subject, String owner, int timeToLiveInSecond)
 			throws WebApplicationException {
 		Lock lock;
 
@@ -35,7 +40,7 @@ public class LockManager {
 			}
 		} else {
 
-			lock = new Lock(subject, owner);
+			lock = new Lock(subject, owner, timeToLiveInSecond);
 			locksElements.put(subject, lock);
 		}
 		return lock;
@@ -51,7 +56,20 @@ public class LockManager {
 
 	public Lock getLock(String subject) {
 		// FIXME:renvoyer un clone car objet mutable
-		return locksElements.get(subject);
+		
+		Lock lock = locksElements.get(subject);
+		
+		if(lock != null) {
+			Date lockDate = lock.getExpiryDate();
+			Date now = Calendar.getInstance().getTime();
+			
+			if(lockDate == null || now.after(lockDate)){
+				locksElements.remove(subject);
+				lock = null;
+			}
+		}
+		
+		return lock;
 	}
 
 }
