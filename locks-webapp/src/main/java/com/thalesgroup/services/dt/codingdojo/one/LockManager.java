@@ -1,7 +1,5 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,10 +58,8 @@ public class LockManager {
 		Lock lock = locksElements.get(subject);
 		
 		if(lock != null) {
-			Date lockDate = lock.getExpiryDate();
-			Date now = Calendar.getInstance().getTime();
 			
-			if(lockDate == null || now.after(lockDate)){
+			if(lock.hasExpired()) {
 				locksElements.remove(subject);
 				lock = null;
 			}

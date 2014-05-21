@@ -1,7 +1,8 @@
 package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.Calendar;
@@ -12,10 +13,13 @@ import javax.ws.rs.WebApplicationException;
 import junit.framework.Assert;
 
 import org.eclipse.jetty.http.HttpStatus;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import com.thalesgroup.services.dt.codingdojo.one.CalendarProvider;
 import com.thalesgroup.services.dt.codingdojo.one.Lock;
 import com.thalesgroup.services.dt.codingdojo.one.LockManager;
 
@@ -26,6 +30,11 @@ public class LockManagerTest {
 	@Before
 	public void setUp() throws Exception {
 		LockManager.getInstance().reset();
+	}
+	
+	@After
+	public void reset() {
+		Lock.setCalendarProvider(new CalendarProvider());
 	}
 	
 	@Ignore
@@ -128,6 +137,57 @@ public class LockManagerTest {
 					.getStatus());
 		}
 
+	}
+	
+
+	
+	@Test
+	public void testExpirationDate() {
+		
+		String subject = "subject";
+		String owner1 = "owner1";
+		
+		Calendar mockedCalendar = Calendar.getInstance();
+		
+		CalendarProvider provider = Mockito.mock(CalendarProvider.class);
+		Mockito.when(provider.getCalendarInstance()).thenReturn(mockedCalendar);
+		
+		Lock.setCalendarProvider(provider);
+		
+		
+		LockManager manager = LockManager.getInstance();
+
+		manager.putLock(subject, owner1, 1);
+		
+		mockedCalendar.add(Calendar.MINUTE, 10);
+		
+		assertNull(manager.getLock(subject));
+	}
+	
+	@Test
+	public void testPutLockAfterExpiration() {
+		
+		String subject = "subject";
+		String owner1 = "owner1";
+		
+		Calendar mockedCalendar = Calendar.getInstance();
+		
+		CalendarProvider provider = Mockito.mock(CalendarProvider.class);
+		Mockito.when(provider.getCalendarInstance()).thenReturn(mockedCalendar);
+		
+		Lock.setCalendarProvider(provider);
+		
+		LockManager manager = LockManager.getInstance();
+
+		manager.putLock(subject, owner1, 1);
+		
+		mockedCalendar.add(Calendar.MINUTE, 10);
+		
+		Lock lock2 = manager.putLock(subject, owner1, 1);
+		
+		assertNotNull(lock2);
+		Assert.assertEquals(subject, lock2.getSubject());
+		Assert.assertEquals(owner1, lock2.getOwner());
 	}
 
 }

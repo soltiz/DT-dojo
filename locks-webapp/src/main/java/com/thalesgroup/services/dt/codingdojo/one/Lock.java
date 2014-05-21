@@ -10,6 +10,11 @@ public class Lock {
 	private String subject;
 	private String owner;
 	private Date expiryDate;
+	private static CalendarProvider calendarProvider = new CalendarProvider();
+
+	public static void setCalendarProvider(CalendarProvider calendarProvider) {
+		Lock.calendarProvider = calendarProvider;
+	}
 
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
@@ -27,7 +32,7 @@ public class Lock {
 		super();
 		this.subject = subject;
 		this.owner = owner;
-		Calendar dateValidityCalendar = Calendar.getInstance();
+		Calendar dateValidityCalendar = calendarProvider.getCalendarInstance();
 		dateValidityCalendar.add(Calendar.SECOND, timeToLiveInSecond);
 		this.expiryDate = dateValidityCalendar.getTime();
 	}
@@ -46,6 +51,17 @@ public class Lock {
 
 	public String getOwner() {
 		return owner;
+	}
+
+	public boolean hasExpired() {
+		Date lockDate = this.getExpiryDate();
+		Date now = calendarProvider.getCalendarInstance().getTime();
+		
+		
+		if(lockDate == null || now.after(lockDate)){
+			return true;
+		}
+		return false;
 	}
 
 }

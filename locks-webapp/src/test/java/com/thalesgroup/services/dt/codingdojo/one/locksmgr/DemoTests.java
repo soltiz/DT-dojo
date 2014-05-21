@@ -1,22 +1,15 @@
 package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
-import org.apache.cxf.jaxrs.client.WebClient;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mortbay.jetty.Server;
-import org.mortbay.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.services.dt.codingdojo.one.DemoObject;
 import com.thalesgroup.services.dt.codingdojo.one.LockService;
-import com.thalesgroup.services.dt.codingdojo.one.signature.SignatureHelper;
 
 public class DemoTests {
 	private static Logger log = LoggerFactory.getLogger(DemoTests.class);
@@ -67,18 +60,18 @@ public class DemoTests {
 //				computedSignature));
 //	}
 
-	// //@Test
-	// public void getDemoObject() throws InterruptedException{
-	//
-	//
-	// DemoObject o=serviceProxy.getOneObject("theOption", "theName");
-	// assertEquals("theName_theOption",o.getName());
-	// }
-	//
-	// //@Test(expected=NotFoundException.class)
-	// public void refusedGetObject() throws InterruptedException{
-	// serviceProxy.getOneObject("theOption", "doesNotExist");
-	// }
+	 //@Test
+//	 public void getDemoObject() throws InterruptedException{
+//	
+//	
+//	 DemoObject o=serviceProxy.getOneObject("theOption", "theName");
+//	 assertEquals("theName_theOption",o.getName());
+//	 }
+	
+//	 //@Test(expected=NotFoundException.class)
+//	 public void refusedGetObject() throws InterruptedException{
+//	 serviceProxy.getOneObject("theOption", "doesNotExist");
+//	 }
 
 	@Test
 	public void testMockito() {
