@@ -24,42 +24,48 @@ public class DemoTests {
 	protected LockService serviceProxy;
 	private Server server;
 
-	@Before
-	public void startServer() throws Exception {
-		if (server == null) {
-
-			server = new Server(8080);
-			server.setStopAtShutdown(true);
-
-			WebAppContext webAppContext = new WebAppContext();
-			webAppContext.setContextPath("/test");
-			webAppContext.setResourceBase("src/main/webapp");
-			webAppContext.setClassLoader(getClass().getClassLoader());
-			server.addHandler(webAppContext);
-			server.start();
-			log.info("Server started.");
-			serviceProxy = JAXRSClientFactory.create(
-					"http://localhost:8080/test/rest/v1", LockService.class);
-			WebClient.client(serviceProxy).accept("application/xml");
-
-		}
-	}
-
-	@Test
-	public void signatureLibraryAvailable() {
-		String dataToSign = "AnImportantTopic_!_OwnedByMe_!_20140301181213.340";
-		Long computedSignature = null;
-		for (int i = 0; i < 8; i++) {
-			dataToSign = dataToSign + "x";
-			computedSignature = SignatureHelper.signatureOf(dataToSign);
-			log.info("Signature field= {} result = {}", dataToSign,
-					computedSignature);
-
-		}
-
-		assertTrue(SignatureHelper.isSignatureValid(dataToSign,
-				computedSignature));
-	}
+//	@Before
+//	public void startServer() throws Exception {
+//		if (server == null) {
+//
+//			server = new Server(8080);
+//			server.setStopAtShutdown(true);
+//
+//			WebAppContext webAppContext = new WebAppContext();
+//			webAppContext.setContextPath("/test");
+//			webAppContext.setResourceBase("src/main/webapp");
+//			webAppContext.setClassLoader(getClass().getClassLoader());
+//			server.addHandler(webAppContext);
+//			server.start();
+//			log.info("Server started.");
+//			serviceProxy = JAXRSClientFactory.create(
+//					"http://localhost:8080/test/rest/v1", LockService.class);
+//			WebClient.client(serviceProxy).accept("application/xml");
+//
+//		}
+//	}
+//
+//	@After
+//	public void shutdownServer() throws Exception {
+//		server.stop();
+//		log.info("Server stopped.");
+//	}
+//
+//	@Test
+//	public void signatureLibraryAvailable() {
+//		String dataToSign = "AnImportantTopic_!_OwnedByMe_!_20140301181213.340";
+//		Long computedSignature = null;
+//		for (int i = 0; i < 8; i++) {
+//			dataToSign = dataToSign + "x";
+//			computedSignature = SignatureHelper.signatureOf(dataToSign);
+//			log.info("Signature field= {} result = {}", dataToSign,
+//					computedSignature);
+//
+//		}
+//
+//		assertTrue(SignatureHelper.isSignatureValid(dataToSign,
+//				computedSignature));
+//	}
 
 	// //@Test
 	// public void getDemoObject() throws InterruptedException{
@@ -73,12 +79,6 @@ public class DemoTests {
 	// public void refusedGetObject() throws InterruptedException{
 	// serviceProxy.getOneObject("theOption", "doesNotExist");
 	// }
-
-	@After
-	public void shutdownServer() throws Exception {
-		server.stop();
-		log.info("Server stopped.");
-	}
 
 	@Test
 	public void testMockito() {
