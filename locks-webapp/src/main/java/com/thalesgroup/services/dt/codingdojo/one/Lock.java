@@ -1,16 +1,22 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.thalesgroup.services.dt.codingdojo.one.signature.SignatureHelper;
 
 @XmlRootElement
 public class Lock {
 	private String subject;
 	private String owner;
 	private Date expiryDate;
+	private Long signature;
 	private static CalendarProvider calendarProvider = new CalendarProvider();
+	
+	private final static String pattern = "yyyyMMddHHmmss.S";
 
 	public static void setCalendarProvider(CalendarProvider calendarProvider) {
 		Lock.calendarProvider = calendarProvider;
@@ -35,8 +41,19 @@ public class Lock {
 		Calendar dateValidityCalendar = calendarProvider.getCalendarInstance();
 		dateValidityCalendar.add(Calendar.SECOND, timeToLiveInSecond);
 		this.expiryDate = dateValidityCalendar.getTime();
+
+		computeSignature();
 	}
 
+	private void computeSignature(){
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		String lockExpiryDateRepresentation =  format.format(this.getExpiryDate());
+		
+		String dataToSign = subject+ "_!_" + owner + "_!_" + lockExpiryDateRepresentation;
+
+		this.signature =  SignatureHelper.signatureOf(dataToSign);		
+	}
+	
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
@@ -62,6 +79,14 @@ public class Lock {
 			return true;
 		}
 		return false;
+	}
+
+	public Long getSignature() {
+		return signature;
+	}
+
+	public void setSignature(Long signature) {
+		this.signature = signature;
 	}
 
 }
