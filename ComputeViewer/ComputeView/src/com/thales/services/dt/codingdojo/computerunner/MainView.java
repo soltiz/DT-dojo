@@ -15,6 +15,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 public class MainView {
@@ -62,10 +63,9 @@ public class MainView {
        
         //add a graph
          XYDataset ds = createDataset();
-         JFreeChart chart = ChartFactory.createXYLineChart("Test Chart",
-                 "x", "y", ds, PlotOrientation.VERTICAL, true, true,
-                 false);
-
+         XYPlot plot=new XYPlot();
+         JFreeChart chart = new JFreeChart("Computing visualization",plot);
+         plot.setDataset(ds);
          ChartPanel cp = new ChartPanel(chart);
          
 

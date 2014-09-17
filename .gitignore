@@ -1,4 +1,8 @@
+RemoteSystemsTempFiles
+target
 *.swp
+.classpath
+.settings
 .metadata
 .~*odt#
 .settings
