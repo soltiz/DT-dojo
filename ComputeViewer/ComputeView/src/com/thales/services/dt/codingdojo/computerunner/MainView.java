@@ -19,16 +19,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 public class MainView {
-	private static XYDataset createDataset() {
-		 
-        DefaultXYDataset ds = new DefaultXYDataset();
- 
-        double[][] data = { {0.1, 0.2, 0.3}, {1, 2, 3} };
- 
-        ds.addSeries("series1", data);
- 
-        return ds;
-    }
+
    private static void initWindow() {
         //Create and set up the window.
         JFrame frame = new JFrame("Compute Runner");
@@ -57,17 +48,17 @@ public class MainView {
          JScrollPane scrollpane = new JScrollPane(table);
          mainPanel.add(scrollpane,BorderLayout.CENTER);
         
-         loadDataButton.addActionListener(new DataLoaderActionListener(dataModel));
-         computeButton.addActionListener(new ComputeActionListener(dataModel));
-
+         
        
         //add a graph
-         XYDataset ds = createDataset();
-         XYPlot plot=new XYPlot();
-         JFreeChart chart = new JFreeChart("Computing visualization",plot);
-         plot.setDataset(ds);
+         JFreeChart chart =ChartFactory.createXYAreaChart("Computing visualization", "X", "Y", null);
+        		 
+         XYPlot plot=chart.getXYPlot();
+    
          ChartPanel cp = new ChartPanel(chart);
          
+         loadDataButton.addActionListener(new DataLoaderActionListener(dataModel));
+         computeButton.addActionListener(new ComputeActionListener(dataModel, plot));
 
         mainPanel.add(cp,BorderLayout.SOUTH);
  
