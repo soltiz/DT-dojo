@@ -8,7 +8,7 @@ public class Sqrt {
 	public double approxSqrt(double x, int nbIterations) {
 		double approx=1.0;
 		for (int k=0; k<nbIterations; k++) {
-			approx=approx- (approx*approx-x)/(2*approx);
+			approx=approx-(approx*approx-x)/(2*approx)+0.1;
 		}
 		return approx;
 	}
