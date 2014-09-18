@@ -57,7 +57,7 @@ public class MainView {
     
          ChartPanel cp = new ChartPanel(chart);
          
-         loadDataButton.addActionListener(new DataLoaderActionListener(dataModel));
+         loadDataButton.addActionListener(new DataLoaderActionListener(dataModel,frame));
          computeButton.addActionListener(new ComputeActionListener(dataModel, plot));
 
         mainPanel.add(cp,BorderLayout.SOUTH);
