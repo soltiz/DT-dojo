@@ -51,7 +51,7 @@ public class MainView {
          
        
         //add a graph
-         JFreeChart chart =ChartFactory.createXYAreaChart("Computing visualization", "X", "Y", null);
+         JFreeChart chart =ChartFactory.createXYLineChart("Computing visualization", "X", "Y", null);
         		 
          XYPlot plot=chart.getXYPlot();
     

@@ -12,55 +12,84 @@ import org.jfree.data.xy.XYDataset;
 import com.thales.services.dt.codingdojo.computerunner.libs.sqrt.Sqrt;
 
 public class ComputeTableModel extends AbstractTableModel {
-
 	
-    public int getColumnCount() { if (yValues==null) { return 1;} else { return 2;} }
-    public int getRowCount() { return xValues.size();}
-    private List<Double> xValues=new ArrayList<Double>();
-    private List<Double> yValues;
-    private Array series;
+	private int nbXValues;
+    private double[] xValues;
+    // ySeries are boxed Doubles in order to support null values
+    private List<List<Double>> ySeries;
     
+    private int getSeriesCount() { return ySeries.size();}  
+  
     private Sqrt computeEngine=new Sqrt();
-    public void init() {
-     //series=new Array
-   	 for (int l=0;l<10;l++) {
-   		 xValues.add(l/10.0);
-   		 fireTableDataChanged();
-   	 }
+    
+	
+    public int getColumnCount() { return getSeriesCount()+1; }
+    public int getRowCount() { return nbXValues;}
+    public ComputeTableModel() {
+    	super();
+    	init(1,0,0);
     }
-    public Object getValueAt(int row, int col) { 
-   	 if (col==0) {
-   		 return xValues.get(row);
-   	 } else if (col==1) {
-   		 return yValues.get(row);
-   	 } else { throw new IndexOutOfBoundsException("Column "+col+" does not exist in data model.");
-   	 
-   	 }
+   public void init(int nbXValues, double minXValue, double xStep) {
+	   this.nbXValues=nbXValues;
+    	xValues=new double[nbXValues];
+    	ySeries=new ArrayList<List<Double>>();
+    	double xValue=minXValue;
+    	for (int l=0;l<nbXValues;l++) {
+    		xValues[l]=xValue;
+    		xValue=xValue+xStep;
+   	 	}
+   	 	fireTableDataChanged();
     }
     
-    public void compute() {
-    	yValues=new ArrayList<Double>();
-    	for (Double xValue : xValues) {
-    		yValues.add(computeEngine.approxSqrt(xValue,4));
+    
+    public Object getValueAt(int row, int col) {
+    	return getDoubleValueAt(row,col);
+    }
+    
+    
+    public Object getDoubleValueAt(int row, int col) {   	
+    	if (col==0) {
+    		return xValues[row];
+    	} else {
+    		return ySeries.get(col-1).get(row);
     	}
+    }
+    	
+ 
+    public void computeSeries(int algoParam) {
+    	List<Double> yValues=new ArrayList<Double>();
+    	for (Double xValue : xValues) {
+    		yValues.add(computeEngine.approxSqrt(xValue,algoParam));
+    	}
+    	ySeries.add(yValues);
     	fireTableStructureChanged();
   		 fireTableDataChanged();
     }
-    private double[] getColumnData(int col) {
-    	double[] columnData=new double[getRowCount()];
-    	int nbRows=getRowCount();
-    	for (int row=0;row<nbRows;row++) {
-    		columnData[row]=(Double)getValueAt(row,col);
+    
+    
+    private double[] getSerieYData(int serieIndex) {
+    	double[] serieData=new double[nbXValues];
+    	List<Double> serie=ySeries.get(serieIndex);
+    	for (int row=0;row<nbXValues;row++) {
+    		serieData[row]=serie.get(row);
     	}
-    	return columnData;
+    	return serieData;
     }
+    
+    private double[][] getSerieXYData(int serieIndex) {
+    	double[][] serieData=new double[2][nbXValues];
+    	serieData[0]=xValues;
+    	serieData[1]=getSerieYData(serieIndex);
+    	return serieData;
+    }
+    
 	public XYDataset getXYDataset() {
 		DefaultXYDataset ds = new DefaultXYDataset();
-		double[][] data = new double[2][getRowCount()];
-		for (int col=0;col<getColumnCount();col++) {
-			data[col]=getColumnData(col);
+		
+		for (int serieIndex=0;serieIndex<getSeriesCount();serieIndex++) {
+			double[][] serieData=getSerieXYData(serieIndex);
+	        ds.addSeries("series "+String.valueOf(serieIndex+1), serieData);
 		}
-        ds.addSeries("series1", data);
 		return ds;
 	}
 

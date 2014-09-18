@@ -9,7 +9,7 @@ public class DataLoaderActionListener implements ActionListener {
 		this.dataModel=dataModel;
 	}
 	public void actionPerformed(ActionEvent e) {
-		dataModel.init();
+		dataModel.init(20,0,0.4);
 	}
 
 }
