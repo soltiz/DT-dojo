@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        ">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<bean id="locksService"
+		class="com.thalesgroup.services.dt.codingdojo.one.LockServiceImpl"
+		autowire="byName">
+	</bean>
+
+
+	<!-- REST container exposing common services at the root URL -->
+	<jaxrs:server id="commonRestContainer" address="/v1">
+		<jaxrs:serviceBeans>
+			<!-- services -->
+			<ref bean="locksService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+		<jaxrs:languageMappings>
+			<entry key="en" value="en-gb" />
+		</jaxrs:languageMappings>
+<!-- 		<jaxrs:providers> -->
+<!-- 			<ref bean="accessMgmtInterceptor" /> -->
+<!-- 			<ref bean="responseInterceptor" /> -->
+<!-- 			<bean -->
+<!-- 				class="com.thales.services.cloudomc.ccm.server.engine.common.service.mapper.CcmExceptionMapper" /> -->
+<!-- 		</jaxrs:providers> -->
+	</jaxrs:server>
+	
+<!-- 	<jaxrs:client id="lockclient" address="http://localhost:8080/test/rest/v1" serviceClass="com.thalesgroup.services.dt.codingdojo.one.LockService"> -->
+<!--         <jaxrs:headers> -->
+<!--             <entry key="Accept" value="application/json"></entry> -->
+<!--         </jaxrs:headers> -->
+<!--     </jaxrs:client> -->
+</beans>
