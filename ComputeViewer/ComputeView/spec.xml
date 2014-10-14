@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <computeSpec>
-	<nbValues>10</nbValues>
+	<nbValues>30</nbValues>
+	<steps>
+		<step>1</step>
+		<step>3</step>
+	</steps>
 </computeSpec>
