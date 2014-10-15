@@ -6,8 +6,11 @@ L'utilisateur doit pouvoir spécifier plusieurs calculs dans son fichier de déf
 Story 2 : 
 L'utilisateur doit pouvoir exporter ses résultats dans un fichier
 
-Story 3 :
-L'utilisateur peut choisir la version de la librairie de calcul à utiliser
+>>> Story 3 :
+L'utilisateur peut choisir la version de la librairie de calcul à utiliser dans le fichier de spec
+
+Story 3.1 :
+L'utilisateur peut maintenant choisir une autre librairie (avec sa méthode de calcul dans une autre classe et un autre package).
 
 Story 4 :
 L'utilisateur peut comparer sur le meme graphe des courbes faites à partir de plusieurs versions de librairie de calcul
