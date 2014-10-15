@@ -8,6 +8,8 @@ L'utilisateur doit pouvoir exporter ses résultats dans un fichier
 
 >>> Story 3 :
 L'utilisateur peut choisir la version de la librairie de calcul à utiliser dans le fichier de spec
+Faire une classe JarClassLoader pour charger dynamiquement le jar.
+http://docs.oracle.com/javase/tutorial/deployment/jar/jarclassloader.html
 
 Story 3.1 :
 L'utilisateur peut maintenant choisir une autre librairie (avec sa méthode de calcul dans une autre classe et un autre package).
