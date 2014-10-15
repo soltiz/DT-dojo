@@ -22,7 +22,7 @@ public class ComputeTableModel extends AbstractTableModel {
 		return ySeries.size();
 	}
 
-	private ComputeEngine computeEngine = new ComputeEngine();
+	private ComputeEngine computeEngine = new ComputeEngine(null);
 
 	public int getColumnCount() {
 		return getSeriesCount() + 1;
@@ -101,4 +101,12 @@ public class ComputeTableModel extends AbstractTableModel {
 		return ds;
 	}
 
+	public double[] getxValues() {
+		return xValues;
+	}
+
+	public List<List<Double>> getySeries() {
+		return ySeries;
+	}
+	
 }
