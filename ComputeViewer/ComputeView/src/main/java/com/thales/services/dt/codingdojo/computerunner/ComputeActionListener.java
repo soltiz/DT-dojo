@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.DefaultXYDataset;
 
 public class ComputeActionListener implements ActionListener {
 	private ComputeTableModel dataModel;

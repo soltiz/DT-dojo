@@ -6,7 +6,6 @@ import java.awt.Container;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,10 +13,7 @@ import javax.swing.JTable;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 
 
 public class MainView {
@@ -41,7 +37,6 @@ public class MainView {
 		// JPanel mainPanel=new JPanel();
 		// mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-		JTable dataTable = new JTable();
 		ComputeTableModel dataModel = new ComputeTableModel();
 		JTable table = new JTable(dataModel);
 		JScrollPane scrollpane = new JScrollPane(table);

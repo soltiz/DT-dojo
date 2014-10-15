@@ -10,8 +10,6 @@ import javax.swing.table.AbstractTableModel;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
-import com.thales.services.dt.codingdojo.computerunner.libs.sqrt.Sqrt;
-
 public class ComputeTableModel extends AbstractTableModel {
 
 	private int nbXValues;
