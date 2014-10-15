@@ -32,6 +32,8 @@ public class MainView {
 		commandPanel.add(loadDataButton);
 		JButton computeButton = new JButton("Compute !");
 		commandPanel.add(computeButton);
+		JButton exportButton = new JButton("Export csv");
+		commandPanel.add(exportButton);		
 		mainPanel.add(commandPanel, BorderLayout.NORTH);
 
 		// JPanel mainPanel=new JPanel();
@@ -54,6 +56,7 @@ public class MainView {
 				dataModel, frame));
 		computeButton.addActionListener(new ComputeActionListener(dataModel,
 				plot));
+		exportButton.addActionListener(new ExportActionListener(dataModel));		
 
 		mainPanel.add(cp, BorderLayout.SOUTH);
 
