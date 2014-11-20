@@ -10,19 +10,19 @@ import javax.swing.table.AbstractTableModel;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
+import com.thales.services.dt.codingdojo.computerunner.ComputeSpec.Serie;
+
 public class ComputeTableModel extends AbstractTableModel {
 
 	private int nbXValues;
 	private double[] xValues;
-	private List<Integer> steps;
+	private List<Serie> series;
 	// ySeries are boxed Doubles in order to support null values
 	private List<List<Double>> ySeries;
 
 	private int getSeriesCount() {
 		return ySeries.size();
 	}
-
-	private ComputeEngine computeEngine = new ComputeEngine(null);
 
 	public int getColumnCount() {
 		return getSeriesCount() + 1;
@@ -34,13 +34,13 @@ public class ComputeTableModel extends AbstractTableModel {
 
 	public ComputeTableModel() {
 		super();
-		init(1, Collections.<Integer> emptyList(), 0, 0);
+		init(1, Collections.<Serie> emptyList(), 0, 0);
 	}
 
-	public void init(int nbXValues, List<Integer> steps, double minXValue,
+	public void init(int nbXValues, List<Serie> series, double minXValue,
 			double xStep) {
 		this.nbXValues = nbXValues;
-		this.steps = steps;
+		this.series = series;
 		xValues = new double[nbXValues];
 		ySeries = new ArrayList<List<Double>>();
 		double xValue = minXValue;
@@ -48,6 +48,7 @@ public class ComputeTableModel extends AbstractTableModel {
 			xValues[l] = xValue;
 			xValue = xValue + xStep;
 		}
+		fireTableStructureChanged();
 		fireTableDataChanged();
 	}
 
@@ -63,12 +64,15 @@ public class ComputeTableModel extends AbstractTableModel {
 		}
 	}
 
-	public void computeSeries() {
-		
-		List<Double[]> yValues = computeEngine.compute(steps, xValues);
-		
-		for (Double[] ds : yValues) {
-			ySeries.add(Arrays.asList(ds));
+	public void computeSeries() throws Exception {
+		if(series==null || series.isEmpty()){
+			throw new IllegalArgumentException("null or empty series");		
+		}
+
+		for (Serie serie : series) {
+			ComputeEngine computeEngine = new ComputeEngine(serie.lib);
+			Double[] yValues = computeEngine.compute(serie.iterations, xValues);
+			ySeries.add(Arrays.asList(yValues));
 		}
 		
 		fireTableStructureChanged();

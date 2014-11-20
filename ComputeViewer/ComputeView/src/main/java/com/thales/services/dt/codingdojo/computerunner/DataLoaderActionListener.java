@@ -42,7 +42,7 @@ public class DataLoaderActionListener implements ActionListener {
 			} catch (JAXBException e1) {
 				e1.printStackTrace();
 			}
-			dataModel.init(spec.nbValues, spec.steps, 0, 0.4);
+			dataModel.init(spec.nbValues, spec.series, 0, 0.4);
 		}
 	}
 

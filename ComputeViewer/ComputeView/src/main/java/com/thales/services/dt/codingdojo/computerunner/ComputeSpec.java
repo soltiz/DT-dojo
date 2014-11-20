@@ -8,7 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ComputeSpec {
 	public int nbValues;
 	
-	@XmlElementWrapper(name="steps")
-	@XmlElement(name="step")
-	public List<Integer> steps;
+	@XmlElementWrapper(name="series")
+	@XmlElement(name="serie")
+	public List<Serie> series;
+	
+	static public class Serie {
+		public int iterations;
+		public String lib;		
+	}
+	
 }

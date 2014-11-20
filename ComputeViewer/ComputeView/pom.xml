@@ -21,14 +21,14 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.thales.services.dt.codingdojo.computerunner.libs</groupId>
-			<artifactId>sqrt-lib</artifactId>
-			<version>0.0.1</version>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.thales.services.dt.codingdojo.computerunner.libs</groupId> -->
+<!-- 			<artifactId>sqrt-lib</artifactId> -->
+<!-- 			<version>0.0.1</version> -->
 
-			<scope>compile</scope>
-		</dependency>
-				<dependency>
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>2.2.11</version>

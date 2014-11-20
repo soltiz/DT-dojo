@@ -1,14 +1,15 @@
 package com.thales.services.dt.codingdojo.computerunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
 public class ComputeEngineTest extends TestCase {
-	final static String JAR1="./libs/sqrt-lib-0.0.1.jar";
+	final static String JAR1="/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.1.jar";
 	
-	public void testComputeOneSerie_withJar1() {
+	public void testComputeOneSerie_withJar1() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IOException {
 		int algoParam = 1;
 		ComputeEngine computeEngine = new ComputeEngine(JAR1);
 		double[] input = { 0.0, 0.4, 0.8, 1.2000000000000002 };
@@ -22,12 +23,12 @@ public class ComputeEngineTest extends TestCase {
 		}
 	}
 	
-	public void testComputeOneSerie_withJar2() {
-		String JAR2="./libs/sqrt-lib-0.0.1.jar";
-		int algoParam = 1;
+	public void testComputeOneSerie_withJar2() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IOException {
+		String JAR2="/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar";
+		int algoParam = 3;
 		ComputeEngine computeEngine = new ComputeEngine(JAR2);
 		double[] input = { 0.0, 0.4, 0.8, 1.2000000000000002 };
-		Double[] expectedResult = { 0.5, 0.7, 0.9, 1.1 };
+		Double[] expectedResult = { 0.3, 0.7416666666666667, 1.0, 1.2000000000000002 };
 		Double[] result = computeEngine.compute(algoParam, input);
 
 		assertEquals(expectedResult.length, result.length);
@@ -36,7 +37,7 @@ public class ComputeEngineTest extends TestCase {
 			assertEquals(expectedResult[i], result[i]);
 		}
 	}
-	public void testComputeSeries() {
+	public void testComputeSeries() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IOException {
 		List<Integer> algoParams = new ArrayList<Integer>();
 		algoParams.add(1);
 		algoParams.add(3);

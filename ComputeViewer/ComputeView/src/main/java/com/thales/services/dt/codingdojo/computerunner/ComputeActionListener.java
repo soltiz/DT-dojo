@@ -13,7 +13,11 @@ public class ComputeActionListener implements ActionListener {
 		this.plot=plot;
 	}
 	public void actionPerformed(ActionEvent e) {
-		dataModel.computeSeries();
+		try {
+			dataModel.computeSeries();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
         plot.setDataset(dataModel.getXYDataset());
 		
 	}

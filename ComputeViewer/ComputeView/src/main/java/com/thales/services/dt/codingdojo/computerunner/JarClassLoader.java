@@ -29,8 +29,10 @@ public class JarClassLoader extends ClassLoader implements Closeable {
 		if (p_name == null) {
 			throw new IllegalArgumentException("Name can't be null");
 		}
+		
+		String name = p_name.replace('.', '/');
 
-		ZipEntry entry = m_file.getEntry(p_name + CLASS_EXT);
+		ZipEntry entry = m_file.getEntry(name + CLASS_EXT);
 		if (entry == null) {
 			throw new ClassNotFoundException();
 		}
