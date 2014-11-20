@@ -13,12 +13,26 @@ public class JarClassLoaderTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testNullJarName() throws IOException {
-		JarClassLoader cl = new JarClassLoader(null);
+		JarClassLoader cl = null;
+		try {
+			cl = new JarClassLoader(null);
+		} finally {
+			if (cl != null) {
+				cl.close();
+			}
+		}
 	}
 
 	@Test(expected = IOException.class)
 	public void testJarNotFound() throws IOException {
-		JarClassLoader cl = new JarClassLoader(new File("notFound.jar"));
+		JarClassLoader cl = null;
+		try {
+			cl = new JarClassLoader(new File("notFound.jar"));
+		} finally {
+			if (cl != null) {
+				cl.close();
+			}
+		}
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -26,7 +40,7 @@ public class JarClassLoaderTest {
 		JarClassLoader cl = null;
 		try {
 			cl = new JarClassLoader(RT_JAR_PATH);
-			Class<?> c = cl.loadClass(null);
+			cl.loadClass(null);
 		} finally {
 			if (cl != null) {
 				cl.close();
@@ -39,7 +53,7 @@ public class JarClassLoaderTest {
 		JarClassLoader cl = null;
 		try {
 			cl = new JarClassLoader(RT_JAR_PATH);
-			Class<?> c = cl.loadClass("foo.Bar");
+			cl.loadClass("foo.Bar");
 		} finally {
 			if (cl != null) {
 				cl.close();
