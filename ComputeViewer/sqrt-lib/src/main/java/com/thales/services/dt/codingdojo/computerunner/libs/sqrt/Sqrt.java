@@ -1,10 +1,13 @@
 package com.thales.services.dt.codingdojo.computerunner.libs.sqrt;
 
 public class Sqrt {
+	
+	@Owner("coding dojo")
 	public double computeSqrt(double x) {
 		return Math.sqrt(x);
 	}
 	
+	@Owner
 	public double approxSqrt(double x, double requestedPrecisionRatio) {
 		double approx=1.0;
 		Double obtainedPrecision=null;

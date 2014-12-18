@@ -4,23 +4,23 @@
 	<series>
 		<serie>
 			<iterations>1</iterations>
-			<lib>/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.1.jar</lib>	
+			<lib>C:/Users/Skik Roy/Documents/GitHub/ComputeViewer/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.1.jar</lib>	
 		</serie>
 		<serie>
 			<iterations>2</iterations>
-			<lib>/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
+			<lib>C:/Users/Skik Roy/Documents/GitHub/ComputeViewer/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
 		</serie>
 		<serie>
 			<iterations>3</iterations>
-			<lib>/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
+			<lib>C:/Users/Skik Roy/Documents/GitHub/ComputeViewer/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
 		</serie>
 		<serie>
 			<iterations>4</iterations>
-			<lib>/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
+			<lib>C:/Users/Skik Roy/Documents/GitHub/ComputeViewer/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
 		</serie>
 		<serie>
 			<iterations>5</iterations>
-			<lib>/home/cedric/dev/DT-dojo/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
+			<lib>C:/Users/Skik Roy/Documents/GitHub/ComputeViewer/ComputeViewer/ComputeView/libs/sqrt-lib-0.0.2.jar</lib>	
 		</serie>
 	</series>
 </computeSpec>

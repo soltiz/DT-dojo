@@ -25,7 +25,7 @@ public class JarClassLoader extends ClassLoader implements Closeable {
 	}
 
 	@Override
-	protected Class<?> findClass(String p_name) throws ClassNotFoundException {
+	public Class<?> findClass(String p_name) throws ClassNotFoundException {
 		if (p_name == null) {
 			throw new IllegalArgumentException("Name can't be null");
 		}
