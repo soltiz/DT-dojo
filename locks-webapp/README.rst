@@ -2,6 +2,30 @@
        REST "Locks" WebService dojo - 2015
 #######################################################
 
+
+**********************
+    Prerequisites
+**********************
+
+Maven >2 (tested with 3.2.3)
+
+JDK > 7 (tested with Oracle 1.8.0.0_45-b14)
+
+**********************
+    Initial status
+**********************
+
+running "mvn jetty:run" in the locks-webapp directory will start web service (first launch : requires internet access for dependencies retrieval by maven)
+
+Invoke the web service using curl (or best : using POSTMAN chrome extension):
+
+::
+
+ >> curl http://localhost:8080/test/rest/v1/DemoService/bob?paramtwo=helloworld
+ <?xml version="1.0" encoding="UTF-8" standalone="yes"?><demoObject name="bob_withOption_helloworld"/>
+
+
+
 ***************
     Stories
 ***************
