@@ -33,13 +33,9 @@ Invoke the web service using curl (or best : using POSTMAN chrome extension):
 Story 1
 =======
 
-Sur requête PUT d'un verrou (/Locks/<topic>?owner=me), le service renvoie le détail d'un verrou, contenant un id unique.
+Sur requête PUT d'un verrou (.../Locks/<topic>?owner=me), le service renvoie le détail d'un verrou, contenant un id unique.
 
     Rappel : PUT est idempotent
-
-
-
-
 
 
 
