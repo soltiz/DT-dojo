@@ -3,6 +3,16 @@
 #######################################################
 
 
+TODO
+- Exemple Mockito
+- Exemple de test de mesure JMETER
+- Imprimer le code
+- suggestion de code multithread
+
+Sujet : 
+- vérifier ce qui est passé à la librairie de signature (contrôle via mockito ou pas)
+
+
 **********************
     Prerequisites
 **********************
@@ -38,14 +48,6 @@ Sur requête PUT d'un verrou (.../Locks/<topic>?owner=me), le service renvoie le
     Rappel : PUT est idempotent
 
 
-
-
-
-
-
-
-
-
 Story 2
 =======
 
@@ -53,32 +55,10 @@ sur requête GET d'un verrou sur un sujet, le service renvoie le détail du verr
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 Story 3
 =======
 
 sur requête PUT d'un verrou sur un sujet existant, avec un owner différent de celui du verrou, le service rejette la demande
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -127,7 +107,7 @@ Les données signées sont une représentation textuelle du topic, du propriéta
 «TOPIC_ !_OWNER_ !_AAAAMMJJHHmmss.mse »
 
 
-    Nota : Cette signature est calculée et vérifiable par des fonctions publiques (fournies dans le  CD.)
+    Nota : Cette signature est calculée et vérifiable par des fonctions publiques (fournies avec le futur produit)
 
 
 
