@@ -2,6 +2,9 @@ package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.ClientException;
@@ -47,17 +50,13 @@ public class LockServiceTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void signatureLibraryAvailable() {
 		String dataToSign = "AnImportantTopic_!_OwnedByMe_!_20140301181213.340";
 		Long computedSignature = null;
-		for (int i = 0; i < 8; i++) {
-			dataToSign = dataToSign + "x";
 			computedSignature = SignatureHelper.signatureOf(dataToSign);
-			log.info("Signature field= {} result = {}", dataToSign,
-					computedSignature);
 
-		}
+		
 
 		assertTrue(SignatureHelper.isSignatureValid(dataToSign,
 				computedSignature));
@@ -103,9 +102,9 @@ public class LockServiceTest {
 			assertTrue(e instanceof NotFoundException);
 		}
 
-		LockObject o1 = serviceProxy.putLockOn("me", "topique", null);
+		LockObject o1 = serviceProxy.putLockOn("me", "topiquegetLock", null);
 
-		LockObject o2 = serviceProxy.getLockOn("topique");
+		LockObject o2 = serviceProxy.getLockOn("topiquegetLock");
 		assertEquals(o1.getId(), o2.getId());
 	}
 
@@ -114,11 +113,53 @@ public class LockServiceTest {
 	@Test
 	public void putLockCheckDate() throws InterruptedException {
 		long duration = 10;
-		LockObject o1 = serviceProxy.putLockOn("me", "topique", duration);
+		LockObject o1 = serviceProxy.putLockOn("me", "topiqueputLockCheckDate", duration);
 		assertNotNull(o1.getCreationDate());
 		assertTrue(o1.getExpirationDate().getTime() == (o1.getCreationDate().getTime() + (duration*1000)));		
 	}
 	
+	@Test
+	public void testSignature() {
+		String owner = "me";
+		String topic = "testSignature";
+		LockObject o1 = serviceProxy.putLockOn(owner, topic, 1L);
+		
+		String expDate = new SimpleDateFormat("yyyyMMddHHmmss.S").format(o1.getExpirationDate());
+
+		String dataToSign = topic + "_!_" + owner + "_!_" + expDate;
+		long computedSignature = SignatureHelper.signatureOf(dataToSign);
+
+		assertEquals(o1.getSignature(), computedSignature);
+	}
+	
+	@Test
+	public void testLockExpiredGet() throws InterruptedException {
+		LockObject o1 = serviceProxy.putLockOn("me", "topiquetestLockExpiredGet", 2L);
+		LockObject o2 = serviceProxy.getLockOn("topiquetestLockExpiredGet");
+		assertEquals(o1.getId(), o2.getId());
+		
+		Thread.sleep(3000);
+		
+		try {
+			serviceProxy.getLockOn("topiquetestLockExpiredGet");
+			fail();
+		} catch (Exception e) {
+			assertTrue(e instanceof NotFoundException);
+		}
+	}
+	
+	
+	@Test
+	public void testLockExpiredPut() throws InterruptedException {
+		LockObject o1 = serviceProxy.putLockOn("me", "topiquetestLockExpiredPut", 2L);
+		LockObject o2 = serviceProxy.getLockOn("topiquetestLockExpiredPut");
+		assertEquals(o1.getId(), o2.getId());
+		
+		Thread.sleep(3000);
+		
+		LockObject o3 = serviceProxy.putLockOn("else", "topiquetestLockExpiredPut", 2L);
+		assertFalse(o3.getId() == o2.getId());
+	}
 
 	@After
 	public void shutdownServer() throws Exception {

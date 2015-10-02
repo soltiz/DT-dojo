@@ -125,7 +125,7 @@ Les données signées sont une représentation textuelle du topic, du propriéta
 Story 7
 =======
 
-		Le service peut répondre de façon nominale à 8 requêtes PUT concernant des verrous de topics différents arrivant au service dans un intervalle d'1 seconde. Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 10 secondes.
+Le service peut répondre de façon nominale à 8 requêtes PUT concernant des verrous de topics différents arrivant au service dans un intervalle d'1 seconde. Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 10 secondes.
 
 
 
