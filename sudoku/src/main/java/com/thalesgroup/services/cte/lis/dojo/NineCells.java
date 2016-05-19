@@ -9,7 +9,7 @@ public abstract class NineCells {
 	
 	public void lastCellCompletion() {
 		HashSet<Cell> emptyCells = new HashSet<Cell>();
-		Set<Integer> remainingValues = getAllValues();
+		Set<Integer> remainingValues = Cell.getAllValues();
 		for (Cell cell:getCells()) {
 			if (cell.hasValue()) {
 				remainingValues.remove(cell.getValue());
@@ -21,12 +21,6 @@ public abstract class NineCells {
 			emptyCells.iterator().next().setValue(remainingValues.iterator().next());
 		}
 	}
-	private Set<Integer> getAllValues() {
-		HashSet<Integer> result = new HashSet<Integer>();
-		for (int i=1;i<10;i++) {
-			result.add(new Integer(i));
-		}
-		return result;
-	}
+
 
 }

@@ -10,7 +10,9 @@ public class Line extends NineCells {
 	public Line(Integer[] values) {
 		cells=new HashMap<Integer,Cell>();
 		for (int c=0;c<9;c++) {
-			cells.put(c,new Cell(values[c]));
+			Cell cell=new Cell(values[c]);
+			cells.put(c,cell);
+			cell.belongsTo(this);
 		}
 	}
 	public Integer[] getAsTable() {

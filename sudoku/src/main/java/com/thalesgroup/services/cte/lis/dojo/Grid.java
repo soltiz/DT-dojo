@@ -66,4 +66,13 @@ public class Grid {
 		}
 		
 	}
+	public void lastValueCompletion() {
+		for (Line l:lines.values()) {
+			for (Cell c:l.getCells()) {
+				c.lastValueCompletion();
+			}
+		}
+		// TODO Auto-generated method stub
+		
+	}
 }

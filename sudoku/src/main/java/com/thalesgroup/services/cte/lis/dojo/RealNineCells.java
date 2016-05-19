@@ -11,6 +11,9 @@ public class RealNineCells extends NineCells{
 		if (cells==null) throw new NullPointerException();
 		if (cells.size()!=9) throw new InvalidParameterException();
 		this.cells=new HashSet<Cell> (cells);
+		for(Cell c : cells) {
+			c.belongsTo(this);
+		}
 	}
 	public Set<Cell> getCells() {
 		return cells;
