@@ -27,7 +27,6 @@ public class Story1Test extends SudokuTest{
 			});
 			
 			result.cell(3, 8).shallContain(7);
-			
 		  }
 
 

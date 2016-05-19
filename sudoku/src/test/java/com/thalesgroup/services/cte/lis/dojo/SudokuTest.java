@@ -43,8 +43,9 @@ public class SudokuTest {
 	
 	protected class SolvedProblem {
 		private Integer [][] result;
+		private Sudoku sudoku;
 		SolvedProblem(Integer[][] problem) {
-			Sudoku sudoku=new Sudoku(problem);
+			sudoku=new Sudoku(problem);
 			
 			try {
 				sudoku.solve();
@@ -55,6 +56,12 @@ public class SudokuTest {
 			} finally {
 				result=sudoku.getAsTable();
 				DisplayGrid(problem, result);
+			}
+		}
+		
+		public void shallBeSolved(){
+			if (sudoku.remainingCellsToSolve()!=0) {
+				fail(String.format("Could not solve the grid ! %d cells still remaining to sove.",sudoku.remainingCellsToSolve()));
 			}
 		}
 		

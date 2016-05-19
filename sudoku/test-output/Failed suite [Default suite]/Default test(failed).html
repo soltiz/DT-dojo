@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Thu May 19 23:46:27 CEST 2016</td>
+<td>Started on:</td><td>Fri May 20 00:26:00 CEST 2016</td>
 </tr>
-<tr><td>Total time:</td><td>0 seconds (17 ms)</td>
+<tr><td>Total time:</td><td>0 seconds (21 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,24 +75,15 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='com.thalesgroup.services.cte.lis.dojo.Story5Test.testGroupsOfTwoWithTwoPossibleValues()'><b>testGroupsOfTwoWithTwoPossibleValues</b><br>Test class: com.thalesgroup.services.cte.lis.dojo.Story5Test</td>
-<td><div><pre>java.security.InvalidParameterException: No more possible value for cell &apos;(row=5,col=9)&apos; while removing last value &apos;1&apos;)  !!!
-	at com.thalesgroup.services.cte.lis.dojo.Cell.removeImpossibleValue(Cell.java:34)
-	at com.thalesgroup.services.cte.lis.dojo.Cell.removeImpossibleValues(Cell.java:107)
-	at com.thalesgroup.services.cte.lis.dojo.NineCells.twoGroupsValuesPairLock(NineCells.java:46)
-	at com.thalesgroup.services.cte.lis.dojo.Grid.twoGroupsValuesPairLock(Grid.java:80)
-	at com.thalesgroup.services.cte.lis.dojo.Sudoku.solve(Sudoku.java:16)
-	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem.&lt;init&gt;(SudokuTest.java:50)
-	at com.thalesgroup.services.cte.lis.dojo.Story5Test.testGroupsOfTwoWithTwoPossibleValues(Story5Test.java:15)
-... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1873859565", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1873859565'><pre>java.security.InvalidParameterException: No more possible value for cell &apos;(row=5,col=9)&apos; while removing last value &apos;1&apos;)  !!!
-	at com.thalesgroup.services.cte.lis.dojo.Cell.removeImpossibleValue(Cell.java:34)
-	at com.thalesgroup.services.cte.lis.dojo.Cell.removeImpossibleValues(Cell.java:107)
-	at com.thalesgroup.services.cte.lis.dojo.NineCells.twoGroupsValuesPairLock(NineCells.java:46)
-	at com.thalesgroup.services.cte.lis.dojo.Grid.twoGroupsValuesPairLock(Grid.java:80)
-	at com.thalesgroup.services.cte.lis.dojo.Sudoku.solve(Sudoku.java:16)
-	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem.&lt;init&gt;(SudokuTest.java:50)
-	at com.thalesgroup.services.cte.lis.dojo.Story5Test.testGroupsOfTwoWithTwoPossibleValues(Story5Test.java:15)
+<td title='com.thalesgroup.services.cte.lis.dojo.RealGridsTest.RealGrid2()'><b>RealGrid2</b><br>Test class: com.thalesgroup.services.cte.lis.dojo.RealGridsTest</td>
+<td><div><pre>java.lang.AssertionError: Could not solve the grid ! 53 cells still remaining to sove.
+	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem.shallBeSolved(SudokuTest.java:64)
+	at com.thalesgroup.services.cte.lis.dojo.RealGridsTest.RealGrid2(RealGridsTest.java:55)
+... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1166807841", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1166807841'><pre>java.lang.AssertionError: Could not solve the grid ! 53 cells still remaining to sove.
+	at org.testng.Assert.fail(Assert.java:94)
+	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem.shallBeSolved(SudokuTest.java:64)
+	at com.thalesgroup.services.cte.lis.dojo.RealGridsTest.RealGrid2(RealGridsTest.java:55)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -119,7 +110,7 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:177)
 </pre></div></td>
 <td>0</td>
-<td>com.thalesgroup.services.cte.lis.dojo.Story5Test@33a10788</td></tr>
+<td>com.thalesgroup.services.cte.lis.dojo.RealGridsTest@591f989e</td></tr>
 </table><p>
 </body>
 </html>
