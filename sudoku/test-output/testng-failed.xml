@@ -5,7 +5,18 @@
     <classes>
       <class name="com.thalesgroup.services.cte.lis.dojo.Story1Test"/>
       <class name="com.thalesgroup.services.cte.lis.dojo.Story2Test"/>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story3Test"/>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story4Test"/>
       <class name="com.thalesgroup.services.cte.lis.dojo.SudokuTest"/>
     </classes>
   </test> <!-- Default test -->
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story4Test">
+        <methods>
+          <include name="testLastCellOfRow"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story4Test -->
+    </classes>
+  </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
