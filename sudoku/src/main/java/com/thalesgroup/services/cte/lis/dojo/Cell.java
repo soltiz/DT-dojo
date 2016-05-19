@@ -1,14 +1,39 @@
 package com.thalesgroup.services.cte.lis.dojo;
 
+import java.security.InvalidParameterException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Cell {
 	private Integer value;
 	private Set<NineCells> knownContainingNineCells;
-	public Cell(Integer value) {
+	private Set<Integer> remainingPossibleValues;
+	private int row;
+	private int col;
+	public Cell(int row, int col, Integer value) {
+		this.row=row;
+		this.col=col;
 		this.value=new Integer(value);
 		knownContainingNineCells=new HashSet<NineCells>();
+		remainingPossibleValues=new HashSet<Integer>();
+		if (hasValue()) {
+			remainingPossibleValues.add(value);
+		} else {
+			remainingPossibleValues=getAllValues();
+		}
+	}
+	
+	public void removeImpossibleValue(Integer impossibleValue) {
+		if (remainingPossibleValues.remove(impossibleValue)) {
+			//System.out.println(String.format("Removed '%d' as impossible for cell '%s'. Remaining possible values : '%s'.",impossibleValue,this,remainingPossibleValuesAsString()));
+	
+			if (remainingPossibleValues.size()==1) {
+				setValue(remainingPossibleValues.iterator().next());
+			} else if (remainingPossibleValues.size()==0) {
+				throw new InvalidParameterException(String.format("No more possible value for cell '%s' while removing last value '%d')  !!!",this,impossibleValue));
+			}
+		}
 	}
 	
 	/**
@@ -34,7 +59,19 @@ public class Cell {
 	}
 
 	public void setValue(int i) {
-		this.value=i;
+		if (hasValue()) {
+			if (value!=i) {
+				String error=String.format("Tried to set value '%d' for cell '%s' but it already has value '%d'.",i,this,value);
+				throw new InvalidParameterException(error);
+			}
+		} else {	
+			System.out.println(String.format("Setting value '%d' in cell '%s'.",i,this));
+			this.value=i;
+		}
+	}
+	
+	public String toString() {
+		return String.format("(row=%d,col=%d)",row+1,col+1);
 	}
 
 	public boolean hasValue() {
@@ -52,15 +89,34 @@ public class Cell {
 		if (hasValue()) {
 			return;
 		}
-		Set<Integer> remainingValues = getAllValues();
 		for (NineCells containingGroup:knownContainingNineCells) {
 			for (Cell c:containingGroup.getCells()){
-				remainingValues.remove(c.getValue());
+				if (c!=this) {
+					removeImpossibleValue(c.getValue());
+				}
 			}
 		}
-		
-		if (remainingValues.size()==1) {
-			setValue(remainingValues.iterator().next());
+	}
+
+	public Set<Integer> getRemainingPossibleValues() {
+		return new HashSet<Integer>(remainingPossibleValues);
+	}
+
+	public void removeImpossibleValues(Set<Integer> impossibleValues) {
+			for (Integer i:impossibleValues) {
+				removeImpossibleValue(i);
+			}
+	}
+
+	public String remainingPossibleValuesAsString() {
+		String result="";
+		for (Iterator<Integer> iterator = getRemainingPossibleValues().iterator()
+				; iterator.hasNext();) {
+			result+=String.valueOf(iterator.next());
+			if (iterator.hasNext()) {
+				result+=",";
+			}
 		}
+		return result;
 	}
 }

@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="4" passed="4">
+<testng-results skipped="0" failed="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="72" started-at="2016-05-19T20:32:47Z" finished-at="2016-05-19T20:32:47Z">
+  <suite name="Default suite" duration-ms="92" started-at="2016-05-19T21:52:32Z" finished-at="2016-05-19T21:52:32Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="72" started-at="2016-05-19T20:32:47Z" finished-at="2016-05-19T20:32:47Z">
+    <test name="Default test" duration-ms="92" started-at="2016-05-19T21:52:32Z" finished-at="2016-05-19T21:52:32Z">
       <class name="com.thalesgroup.services.cte.lis.dojo.Story1Test">
-        <test-method status="PASS" signature="testLastCellOfRow()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story1Test@2d6a9952]" name="testLastCellOfRow" duration-ms="34" started-at="2016-05-19T22:32:47Z" finished-at="2016-05-19T22:32:47Z">
+        <test-method status="PASS" signature="testLastCellOfRow()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story1Test@22a71081]" name="testLastCellOfRow" duration-ms="42" started-at="2016-05-19T23:52:32Z" finished-at="2016-05-19T23:52:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLastCellOfRow -->
       </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story1Test -->
       <class name="com.thalesgroup.services.cte.lis.dojo.Story3Test">
-        <test-method status="PASS" signature="testLastCellOfRow()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story3Test@1bc6a36e]" name="testLastCellOfRow" duration-ms="7" started-at="2016-05-19T22:32:47Z" finished-at="2016-05-19T22:32:47Z">
+        <test-method status="PASS" signature="testLastCellOfRow()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story3Test@1ff8b8f]" name="testLastCellOfRow" duration-ms="6" started-at="2016-05-19T23:52:32Z" finished-at="2016-05-19T23:52:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLastCellOfRow -->
       </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story3Test -->
       <class name="com.thalesgroup.services.cte.lis.dojo.Story2Test">
-        <test-method status="PASS" signature="testLastCellOfSquare()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story2Test@629f0666]" name="testLastCellOfSquare" duration-ms="7" started-at="2016-05-19T22:32:47Z" finished-at="2016-05-19T22:32:47Z">
+        <test-method status="PASS" signature="testLastCellOfSquare()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story2Test@1bc6a36e]" name="testLastCellOfSquare" duration-ms="6" started-at="2016-05-19T23:52:32Z" finished-at="2016-05-19T23:52:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLastCellOfSquare -->
       </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story2Test -->
       <class name="com.thalesgroup.services.cte.lis.dojo.Story4Test">
-        <test-method status="PASS" signature="testLastPossibleValueOfCell()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story4Test@1ff8b8f]" name="testLastPossibleValueOfCell" duration-ms="6" started-at="2016-05-19T22:32:47Z" finished-at="2016-05-19T22:32:47Z">
+        <test-method status="PASS" signature="testLastPossibleValueOfCell()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story4Test@387c703b]" name="testLastPossibleValueOfCell" duration-ms="4" started-at="2016-05-19T23:52:32Z" finished-at="2016-05-19T23:52:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLastPossibleValueOfCell -->
       </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story4Test -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story5Test">
+        <test-method status="PASS" signature="testGroupsOfTwoWithTwoPossibleValues()[pri:0, instance:com.thalesgroup.services.cte.lis.dojo.Story5Test@224aed64]" name="testGroupsOfTwoWithTwoPossibleValues" duration-ms="12" started-at="2016-05-19T23:52:32Z" finished-at="2016-05-19T23:52:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGroupsOfTwoWithTwoPossibleValues -->
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story5Test -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

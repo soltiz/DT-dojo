@@ -8,11 +8,16 @@ public class Sudoku {
 	private Grid grid;
 	public Sudoku(Integer[][] problem) {
 		this.grid=new Grid(problem);
+			}
+	
+	public void solve(){
 		grid.lastCellCompletion();
 		grid.lastValueCompletion();
+		grid.twoGroupsValuesPairLock();
+
 	}
 
-	public Integer[][] getSolvedGrid() {
+	public Integer[][] getAsTable() {
 		return grid.getAsTable();
 	}
 

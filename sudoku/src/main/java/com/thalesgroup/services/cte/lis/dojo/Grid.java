@@ -18,7 +18,7 @@ public class Grid {
 		squares=new HashSet<NineCells>();
 		
 		for (int l=0;l<9;l++) {
-			Line line=new Line(values[l]);
+			Line line=new Line(l,values[l]);
 			lines.put(l,line);
 		}
 		for (int c=0;c<9;c++) {
@@ -73,6 +73,12 @@ public class Grid {
 			}
 		}
 		// TODO Auto-generated method stub
+		
+	}
+	public void twoGroupsValuesPairLock() {
+		for (NineCells nineCells:allNineCells) {
+			nineCells.twoGroupsValuesPairLock();
+		}
 		
 	}
 }

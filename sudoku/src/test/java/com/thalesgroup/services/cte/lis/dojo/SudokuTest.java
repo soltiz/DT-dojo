@@ -44,8 +44,18 @@ public class SudokuTest {
 	protected class SolvedProblem {
 		private Integer [][] result;
 		SolvedProblem(Integer[][] problem) {
-			result=new Sudoku(problem).getSolvedGrid();
-			DisplayGrid(problem, result);
+			Sudoku sudoku=new Sudoku(problem);
+			
+			try {
+				sudoku.solve();
+			} catch (RuntimeException e) {
+				System.out.println("EXCEPTION CAUGHT !!! "+e.toString());
+				
+				throw e;
+			} finally {
+				result=sudoku.getAsTable();
+				DisplayGrid(problem, result);
+			}
 		}
 		
 		class CellChecker {

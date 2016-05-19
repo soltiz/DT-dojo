@@ -8,6 +8,7 @@
       <class name="com.thalesgroup.services.cte.lis.dojo.Story3Test"/>
       <class name="com.thalesgroup.services.cte.lis.dojo.Story4Test"/>
       <class name="com.thalesgroup.services.cte.lis.dojo.SudokuTest"/>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story5Test"/>
     </classes>
   </test> <!-- Default test -->
 </suite> <!-- Failed suite [Default suite] -->

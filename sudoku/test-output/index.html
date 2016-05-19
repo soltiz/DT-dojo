@@ -91,7 +91,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">4 methods,   4 passed</span>
+                    <span class="method-stats">5 methods,   5 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -102,12 +102,17 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.thalesgroup.services.cte.lis.dojo.Story1Test" hash-for-method="testLastCellOfRow">testLastCellOfRow</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.thalesgroup.services.cte.lis.dojo.Story5Test" hash-for-method="testGroupsOfTwoWithTwoPossibleValues">testGroupsOfTwoWithTwoPossibleValues</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.thalesgroup.services.cte.lis.dojo.Story3Test" hash-for-method="testLastCellOfRow">testLastCellOfRow</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.thalesgroup.services.cte.lis.dojo.Story1Test" hash-for-method="testLastCellOfRow">testLastCellOfRow</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
@@ -132,6 +137,21 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.thalesgroup.services.cte.lis.dojo.Story5Test</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testGroupsOfTwoWithTwoPossibleValues">
+                  </a> <!-- testGroupsOfTwoWithTwoPossibleValues -->
+                  <span class="method-name">testGroupsOfTwoWithTwoPossibleValues</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-passed -->
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -195,7 +215,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-1567772448/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse--820621500/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -209,6 +229,7 @@
       &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.Story3Test&quot;/&gt;
       &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.Story4Test&quot;/&gt;
       &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.SudokuTest&quot;/&gt;
+      &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.Story5Test&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -222,7 +243,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Default test (5 classes)</span>
+                <span class="test-name">Default test (6 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -248,28 +269,32 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(4);
+data.addRows(5);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testLastCellOfRow')
 data.setCell(0, 2, 'com.thalesgroup.services.cte.lis.dojo.Story1Test')
-data.setCell(0, 3, 34);
+data.setCell(0, 3, 42);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'testLastCellOfRow')
-data.setCell(1, 2, 'com.thalesgroup.services.cte.lis.dojo.Story3Test')
-data.setCell(1, 3, 7);
+data.setCell(1, 1, 'testGroupsOfTwoWithTwoPossibleValues')
+data.setCell(1, 2, 'com.thalesgroup.services.cte.lis.dojo.Story5Test')
+data.setCell(1, 3, 12);
 data.setCell(2, 0, 2)
 data.setCell(2, 1, 'testLastCellOfSquare')
 data.setCell(2, 2, 'com.thalesgroup.services.cte.lis.dojo.Story2Test')
-data.setCell(2, 3, 7);
+data.setCell(2, 3, 6);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'testLastPossibleValueOfCell')
-data.setCell(3, 2, 'com.thalesgroup.services.cte.lis.dojo.Story4Test')
+data.setCell(3, 1, 'testLastCellOfRow')
+data.setCell(3, 2, 'com.thalesgroup.services.cte.lis.dojo.Story3Test')
 data.setCell(3, 3, 6);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'testLastPossibleValueOfCell')
+data.setCell(4, 2, 'com.thalesgroup.services.cte.lis.dojo.Story4Test')
+data.setCell(4, 3, 4);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 54 ms</span>
+              <span class="suite-total-time">Total running time: 70 ms</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -302,24 +327,31 @@ return data;
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
+              <div class="chronological-class-name">com.thalesgroup.services.cte.lis.dojo.Story5Test</div> <!-- chronological-class-name -->
+              <div class="test-method">
+                <span class="method-name">testGroupsOfTwoWithTwoPossibleValues</span>
+                <span class="method-start">43 ms</span>
+              </div> <!-- test-method -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
               <div class="chronological-class-name">com.thalesgroup.services.cte.lis.dojo.Story2Test</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">testLastCellOfSquare</span>
-                <span class="method-start">36 ms</span>
+                <span class="method-start">57 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">com.thalesgroup.services.cte.lis.dojo.Story3Test</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">testLastCellOfRow</span>
-                <span class="method-start">44 ms</span>
+                <span class="method-start">64 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">com.thalesgroup.services.cte.lis.dojo.Story4Test</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">testLastPossibleValueOfCell</span>
-                <span class="method-start">52 ms</span>
+                <span class="method-start">71 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

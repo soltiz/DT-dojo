@@ -7,10 +7,11 @@ import java.util.Set;
 
 public class Line extends NineCells {
 	Map<Integer,Cell> cells;
-	public Line(Integer[] values) {
+	private int row;
+	public Line(int row, Integer[] values) {
 		cells=new HashMap<Integer,Cell>();
 		for (int c=0;c<9;c++) {
-			Cell cell=new Cell(values[c]);
+			Cell cell=new Cell(row,c,values[c]);
 			cells.put(c,cell);
 			cell.belongsTo(this);
 		}
