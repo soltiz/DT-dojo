@@ -3,16 +3,9 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test verbose="2" name="Default test">
     <classes>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story1Test"/>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story2Test"/>
       <class name="com.thalesgroup.services.cte.lis.dojo.SudokuTest"/>
     </classes>
   </test> <!-- Default test -->
-  <test name="Default test(failed)">
-    <classes>
-      <class name="com.thalesgroup.services.cte.lis.dojo.SudokuTest">
-        <methods>
-          <include name="f"/>
-        </methods>
-      </class> <!-- com.thalesgroup.services.cte.lis.dojo.SudokuTest -->
-    </classes>
-  </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

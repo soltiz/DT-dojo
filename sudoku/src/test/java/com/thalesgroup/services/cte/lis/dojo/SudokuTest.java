@@ -4,13 +4,6 @@ import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 public class SudokuTest {
 	public static final Integer x=0;
-
-	private Integer[][] test(Integer[][] src) {
-		Integer[][] result={{1,2}};
-		result[0][0]=3;
-		return result;
-	}
-	
 	
 	/**
 	 * 	 * 
@@ -48,31 +41,43 @@ public class SudokuTest {
 		}
 	}
 	
-	@Test
-	  public void f() {
-		Integer [][] source = {
-				
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  3,4,5,  1,9,8,  6,x,2  },
-				
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  x,x,x,  x,x,x,  x,x,x  },
-				
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  x,x,x,  x,x,x,  x,x,x  },
-				{  x,x,x,  x,x,x,  x,x,x  }
-				
-		};
+	protected class SolvedProblem {
+		private Integer [][] result;
+		SolvedProblem(Integer[][] problem) {
+			result=new Sudoku(problem).getSolvedGrid();
+			DisplayGrid(problem, result);
+		}
 		
-		DisplayGrid(source,source);
-		//result=test(source);
-		//assert.result[3][9];
-		
-						
-		assertEquals(true,false);
-	  }
-
+		class CellChecker {
+			private Integer value;
+			private int rowNum;
+			private int columnNum;
+			CellChecker(Integer value,int rowNum,int columnNum) {
+				this.value=value;
+				this.rowNum=rowNum;
+				this.columnNum=columnNum;
+			}
+			public void shallContain(Integer expectedValue){
+				if (value!=expectedValue) {
+					String error=String.format("Expected value '%d' in cell (row=%d,column=%d) but obtained value '%d' instead.",expectedValue,rowNum,columnNum,value);
+					System.err.println(error);
+					fail(error);
+				}
+			}
+		}
+		/**
+		 * 
+		 * Retrieves cell by row,column, in a 1-based way (i.e. first cell is 1,1)
+		 * 
+		 * @param row
+		 * @param column
+		 * @return
+		 */
+		public CellChecker cell(int row, int column) {
+			return new CellChecker(result[row-1][column-1],row,column);
+		}
+	}
+	
+	
 	
 }
