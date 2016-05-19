@@ -16,9 +16,10 @@ public class Sudoku {
 		while ((remainingValuesToEliminate!=0) && (remainingValuesToEliminate<previousRemaining)) {
 			previousRemaining=remainingValuesToEliminate;
 		
-			grid.lastCellCompletion();
+			//grid.lastCellCompletion();
 			grid.lastValueCompletion();
 			grid.twoGroupsValuesPairLock();
+			//grid.NGroupsValuesLock();
 			remainingValuesToEliminate=remainingValuesToEliminate();
 			System.out.println(String.format("%d values yet to be eliminated before problem is solved.",remainingValuesToEliminate));
 		}

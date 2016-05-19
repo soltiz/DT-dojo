@@ -106,4 +106,10 @@ public class Grid {
 		}
 		return count;
 	}
+
+	public void NGroupsValuesLock() {
+		for (NineCells nineCells : allNineCells) {
+			nineCells.NGroupsValuesLock();
+		}
+	}
 }

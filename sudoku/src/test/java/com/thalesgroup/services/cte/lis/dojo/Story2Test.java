@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 public class Story2Test extends SudokuTest{
 		
 		@Test
-		  public void testLastCellOfSquare() {
+		  public void testLastCellOfColumn() {
 			
 			// When in a column, only on 1 cell is not solved, then this cell solution is the last digit
-			// not used in the row
+			// not used in the column
 			
 			SolvedProblem result = new SolvedProblem(new Integer[][]{
 					
