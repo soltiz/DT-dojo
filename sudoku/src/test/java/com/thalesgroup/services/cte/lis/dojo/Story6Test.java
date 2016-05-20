@@ -17,20 +17,18 @@ public class Story6Test extends SudokuTest {
 
 		SolvedProblem result = new SolvedProblem(new Integer[][] {
 
-				{ x, x, x, x, x, 4, x, x, x }, 
-				{ x, x, x, x, x, 1, x, x, 6 }, 
-				{ x, x, 3, x, x, 2, x, x, x },
+				{ 3, x, x,    x, x, 4,    x, x, x }, 
+				{ x, x, x,    x, x, 1,    x, x, 6 }, 
+				{ x, x, 3,    x, x, 2,    x, x, x },
 
-				{ x, x, x, 9, 1, x, x, 8, x }, // <-- here, column 3 and 6 have
-												// only 5,6 and 7
-				{ 4, x, x, x, x, 3, x, x, x }, // And column 2 of same line has
-												// only 7, 6, 5 and 3
-				{ x, x, 2, x, 4, 8, x, x, x }, // ===> Therefore 3 is the only
-												// choice remaining there
+				{ x, x, x,    9, 1, x,    x, 8, x }, // <-- here, columns 1, 3 and 6 have only 5,6 and 7
+				{ 4, x, x,    x, x, 3,    x, x, x }, // And column 2 of same line has only 7, 6, 5 and 3
+				{ x, x, 2,    x, 4, 8,    x, x, x }, // ===> Therefore 3 is the only
+												      // choice remaining there
 
-				{ x, x, 8, x, x, x, x, x, 3 }, 
-				{ x, x, x, x, x, 9, x, x, x }, 
-				{ x, x, x, x, x, x, x, x, x }
+				{ x, x, 8,    x, x, x,    x, x, 3 }, 
+				{ x, x, x,    x, x, 9,    x, x, x }, 
+				{ x, x, x,    x, x, x,    x, x, x }
 
 		});
 
@@ -38,5 +36,5 @@ public class Story6Test extends SudokuTest {
 
 	}
 
-	
+
 }
