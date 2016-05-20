@@ -1,8 +1,5 @@
 package com.thalesgroup.services.cte.lis.dojo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Sudoku {
 
 	private Grid grid;
@@ -11,18 +8,14 @@ public class Sudoku {
 			}
 	
 	public void solve(){
-		Integer remainingValuesToEliminate=remainingValuesToEliminate();
-		Integer previousRemaining=10000;
-		while ((remainingValuesToEliminate!=0) && (remainingValuesToEliminate<previousRemaining)) {
-			previousRemaining=remainingValuesToEliminate;
-		
-			//grid.lastCellCompletion();
-			grid.lastValueCompletion();
-			grid.twoGroupsValuesPairLock();
-			//grid.NGroupsValuesLock();
-			remainingValuesToEliminate=remainingValuesToEliminate();
-			System.out.println(String.format("%d values yet to be eliminated before problem is solved.",remainingValuesToEliminate));
-		}
+		grid.solve();
+	}
+	
+	public void tryRandom(){
+		grid.tryRandom();
+	}
+	public void display() {
+		grid.display();
 	}
 
 	public Integer[][] getAsTable() {
@@ -35,6 +28,10 @@ public class Sudoku {
 
 	public int remainingCellsToSolve() {
 		return grid.remainingCellsToSolve();
+	}
+
+	public Cell getCell(int oneBasedRow, int oneBasedCol) {
+		return grid.getCell(oneBasedCol-1, oneBasedCol-1);
 	}
 
 

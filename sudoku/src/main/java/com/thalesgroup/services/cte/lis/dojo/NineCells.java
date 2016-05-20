@@ -8,6 +8,8 @@ import java.util.Set;
 
 public abstract class NineCells {
 
+	protected String name;
+
 	public abstract Set<Cell> getCells();
 
 	public void lastCellCompletion() {
@@ -89,7 +91,7 @@ public abstract class NineCells {
 		}
 		// Then at each step, generate combination of size +1, by choosing
 		// elements at the right of the last chosen one.
-		for (int sz = 0; sz < size; sz++) {
+		for (int sz = 1; sz < size; sz++) {
 			Set<List<Integer>> previousStep = resultIndexes;
 			resultIndexes = new HashSet<List<Integer>>();
 			for (List<Integer> previousList : previousStep) {
@@ -113,6 +115,23 @@ public abstract class NineCells {
 		return result;
 	}
 	
+	public void dumpState() {
+		System.out.println();
+		System.out.println(String.format("State of %s :", this));
+		for (Cell c : getCells()) {
+			if (c.hasValue()) {
+				System.out.println(String.format("  Cell '%s' has solved value '%d'.",c,c.getIntValue()));
+			}
+		}
+		for (Cell c : getCells()) {
+			if (!c.hasValue()) {
+				System.out.println(String.format("  Cell '%s' has remaining possible values '%s'.",c,c.remainingPossibleValuesAsString()));
+			}
+		}
+		System.out.println();
+		
+	}
+	
 	public void NGroupsValuesLock() {
 		for (int sz=2;sz<9;sz++) {
 			Set<List<Cell>> unsolvedCombinations = getUnsolvedCellsCombinations(sz);
@@ -123,19 +142,32 @@ public abstract class NineCells {
 				if (firtCellRemainingPossibilities.size()==sz) {
 					boolean everythingMatches = true;
 					while((everythingMatches) && (cellIterator.hasNext())) {
+						
 						Cell otherCell=cellIterator.next();
+						//if ((firstCell.toString().contains("row=4")) && (otherCell.toString().contains("row=4"))){
+						//	dumpState();
+						//}
 						Set<Integer> otherCellPossibilities = otherCell.getRemainingPossibleValues();
 						if ((otherCellPossibilities.size()!=sz) || (! otherCellPossibilities.containsAll(firtCellRemainingPossibilities))) {
 							everythingMatches=false;
 						}
 					}
 					if (everythingMatches) {
-							
 						for (Cell cell : getUnsolvedCells()) {
 							if (!cellCombination.contains(cell)) {
-								cell.removeImpossibleValues(firtCellRemainingPossibilities);
+								for (Integer v:firtCellRemainingPossibilities) {
+									if (cell.getRemainingPossibleValues().contains(v) ) {
+											System.out.println(String.format("Cells %s can only contain %s. Therefore value %d cannot be in cell %s",
+													cellCombination,
+													firstCell.remainingPossibleValuesAsString(),
+													v,
+													cell));
+										cell.removeImpossibleValue(v);
+									}
+								}
 							}
 						}
+						//dumpState();
 					}
 				}
 			}
@@ -143,5 +175,9 @@ public abstract class NineCells {
 		}
 
 	}
+	public String getName() {
+		return name;
+	}
+	public String toString() { return getName();};
 	
 }

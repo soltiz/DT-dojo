@@ -93,8 +93,21 @@ public class SudokuTest {
 		public CellChecker cell(int row, int column) {
 			return new CellChecker(result[row-1][column-1],row,column);
 		}
-	}
+
+		public void tryRandom() {
+			sudoku.tryRandom();
+			
+		}
+
+		public Cell getCell(int oneBasedRow, int oneBasedCol) {
+			return sudoku.getCell(oneBasedRow, oneBasedCol);
+		}
+
+		public void solveAgain() {
+			sudoku.solve();
+			
+		}
 	
 	
-	
+	}	
 }

@@ -29,6 +29,7 @@ public class Cell {
 			//System.out.println(String.format("Removed '%d' as impossible for cell '%s'. Remaining possible values : '%s'.",impossibleValue,this,remainingPossibleValuesAsString()));
 	
 			if (remainingPossibleValues.size()==1) {
+				System.out.println("Only one possible value remaining for cell "+this);
 				setValue(remainingPossibleValues.iterator().next());
 			} else if (remainingPossibleValues.size()==0) {
 				throw new InvalidParameterException(String.format("No more possible value for cell '%s' while removing last value '%d')  !!!",this,impossibleValue));
@@ -64,7 +65,20 @@ public class Cell {
 				String error=String.format("Tried to set value '%d' for cell '%s' but it already has value '%d'.",i,this,value);
 				throw new InvalidParameterException(error);
 			}
-		} else {	
+		} else {
+			if (! remainingPossibleValues.contains(i)) {
+				String error=String.format("Tried to set value '%d' for cell '%s' but remaining possible values are only : %s",i,this,remainingPossibleValuesAsString());
+				throw new InvalidParameterException(error);
+			}
+			for (NineCells group:knownContainingNineCells) {
+				for (Cell c:group.getCells()) {
+					if (c.getValue()==i) {
+						String error=String.format("Tried to set value '%d' for cell '%s' but cell '%s' already has it !",i,this,c);
+						throw new InvalidParameterException(error);
+						
+					}
+				}
+			}
 			System.out.println(String.format("Setting value '%d' in cell '%s'.",i,this));
 			this.value=i;
 		}
@@ -85,13 +99,32 @@ public class Cell {
 		return result;
 	}
 	
+	private void dumpContainingGroups() {
+		System.out.println();
+		System.out.println(String.format("Cell '%s' is contained in : ", this));
+		
+		for (NineCells group:knownContainingNineCells) {
+			System.out.println(String.format(" - %s", group.getName()));
+		}
+		System.out.println();
+
+	}
+	
 	public void lastValueCompletion() {
+		boolean debug=false;
+		//if ((row==3) && (col==1)) {
+		//	dumpContainingGroups();
+		//	debug=true;
+		//}
 		if (hasValue()) {
 			return;
 		}
 		for (NineCells containingGroup:knownContainingNineCells) {
+			if (debug) {
+				containingGroup.dumpState();
+			}
 			for (Cell c:containingGroup.getCells()){
-				if (c!=this) {
+				if ((c.hasValue()) && (c!=this)) {
 					removeImpossibleValue(c.getValue());
 				}
 			}
@@ -118,5 +151,13 @@ public class Cell {
 			}
 		}
 		return result;
+	}
+
+	public int getZeroBasedRow() {
+		return row;
+	}
+
+	public int getZeroBasedCol() {
+		return col;
 	}
 }

@@ -9,6 +9,8 @@ public class Line extends NineCells {
 	Map<Integer,Cell> cells;
 	private int row;
 	public Line(int row, Integer[] values) {
+		this.name="Line "+String.valueOf(row+1);
+		this.row=row;
 		cells=new HashMap<Integer,Cell>();
 		for (int c=0;c<9;c++) {
 			Cell cell=new Cell(row,c,values[c]);
@@ -30,5 +32,23 @@ public class Line extends NineCells {
 	}
 	public Set<Cell> getCells() {
 		return new HashSet<Cell>(cells.values());
+	}
+	public void display() {
+		System.out.println("+---+---+---+  +---+---+---+  +---+---+---+");
+		for (Integer c=0;c<9; c++) {
+			Cell cell=cells.get(c);
+			String cellValue=" ";
+			if (cell.hasValue()) {
+				cellValue=String.valueOf(cell.getIntValue());
+			}
+			System.out.print(String.format("| %s ",cellValue));
+			if ((c%3)==2) {
+				System.out.print("|  ");
+			}
+		}
+		System.out.println();
+		if ((row%3)==2) {
+			System.out.println("+---+---+---+  +---+---+---+  +---+---+---+");
+		}
 	}
 }
