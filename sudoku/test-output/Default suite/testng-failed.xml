@@ -15,11 +15,43 @@
   </test> <!-- Default test -->
   <test name="Default test(failed)">
     <classes>
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story2Test">
+        <methods>
+          <include name="testLastCellOfColumn"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story2Test -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story5Test">
+        <methods>
+          <include name="testGroupsOfTwoWithTwoPossibleValues"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story5Test -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story1Test">
+        <methods>
+          <include name="testLastCellOfRow"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story1Test -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story4Test">
+        <methods>
+          <include name="testLastPossibleValueOfCell"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story4Test -->
       <class name="com.thalesgroup.services.cte.lis.dojo.RealGridsTest">
         <methods>
+          <include name="EmptyGrid"/>
+          <include name="RealGrid1"/>
           <include name="RealGrid2"/>
         </methods>
       </class> <!-- com.thalesgroup.services.cte.lis.dojo.RealGridsTest -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story6Test">
+        <methods>
+          <include name="testGroupsOfNWithNPossibleValues"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story6Test -->
+      <class name="com.thalesgroup.services.cte.lis.dojo.Story3Test">
+        <methods>
+          <include name="testLastCellOfRow"/>
+        </methods>
+      </class> <!-- com.thalesgroup.services.cte.lis.dojo.Story3Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -17,7 +17,9 @@ public class Story6Test extends SudokuTest {
 
 		SolvedProblem result = new SolvedProblem(new Integer[][] {
 
-				{ x, x, x, x, x, 4, x, x, x }, { x, x, x, x, x, 1, x, x, 6 }, { x, x, 3, x, x, 2, x, x, x },
+				{ x, x, x, x, x, 4, x, x, x }, 
+				{ x, x, x, x, x, 1, x, x, 6 }, 
+				{ x, x, 3, x, x, 2, x, x, x },
 
 				{ x, x, x, 9, 1, x, x, 8, x }, // <-- here, column 3 and 6 have
 												// only 5,6 and 7
@@ -26,55 +28,15 @@ public class Story6Test extends SudokuTest {
 				{ x, x, 2, x, 4, 8, x, x, x }, // ===> Therefore 3 is the only
 												// choice remaining there
 
-				{ x, x, 8, x, x, x, x, x, 3 }, { x, x, x, x, x, 9, x, x, x }, { x, x, x, x, x, x, x, x, x }
+				{ x, x, 8, x, x, x, x, x, 3 }, 
+				{ x, x, x, x, x, 9, x, x, x }, 
+				{ x, x, x, x, x, x, x, x, x }
 
 		});
 
-		//result.cell(4, 2).shallContain(3);
+		result.cell(4, 2).shallContain(3);
 
 	}
 
-	@Test
-		void testThis() {
-			
-			List<Integer> source=new ArrayList<Integer>();
-			source.add(3);
-			source.add(7);
-			source.add(11);
-			source.add(17);
-			
-			
-			// We will work on indexes, and translate at the end
-			
-			// First step : generate combination of size 1
-			List<List<Integer>> result=new ArrayList<List<Integer>>();
-			for (Integer i=0; i<4; i++) {
-				List<Integer> combination=new ArrayList<Integer>();
-				combination.add(i);
-				result.add(combination);
-			}
-			// Then at each step, generate combination of size +1, by choosing elements at the right of the last chosen one.
-			for (int sz=0; sz<2; sz++) {
-				List<List<Integer>> previousStep = result;
-				result = new ArrayList<List<Integer>>();
-				for (List<Integer> previousList:previousStep) {
-					Integer last = previousList.get(previousList.size()-1);
-					for (int j=last+1;j<4;j++) {
-						ArrayList<Integer> newList = new ArrayList<Integer>(previousList);
-						newList.add(j);
-						result.add(newList);
-					}
-
-				}
-			}
-			
-			
-			for (List<Integer> list:result) {
-				 for (Integer i:list) {
-					 System.out.print(String.valueOf(source.get(i))+"  " );
-				 }
-				System.out.println();
-			}
-		}
-
+	
 }
