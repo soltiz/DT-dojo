@@ -12,21 +12,21 @@ public class Story7Test extends SudokuTest {
 
 		SolvedProblem result = new SolvedProblem(new Integer[][] {
 
-				{ x, x, x,    1, 3, x,    x, x, x }, 
-				{ x, 5, 8,    4, 7, x,    x, x, x }, 
-				{ x, 6, 9,    x, x, x,    x, x, x },
+				{ x, x, x,    x, x, x,    x, x, x }, 
+				{ x, 5, 8,    1, 3, 8,    x, x, x }, 
+				{ x, 6, 9,    5, x, 7,    x, x, x },
 
 				{ x, x, x,    x, x, x,    x, x, x },
 				{ x, x, x,    x, x, x,    x, x, x },
-				{ x, x, x,    x, x, x,    x, x, 2 },
+				{ x, x, x,    x, x, x,    x, x, x },
 												      
-				{ x, x, x,    x, x, x,    2, x, x }, 
+				{ x, x, x,    x, x, x,    x, x, x }, 
 				{ 2, x, x,    x, x, x,    x, x, x }, 
-				{ x, x, x,    x, x, 2,    x, x, x }
+				{ x, x, x,    x, x, x,    x, x, x }
 
 		});
 				
-		result.cell(2, 8).shallContain(2);
+		result.cell(3, 5).shallContain(2);
 
 	}
 

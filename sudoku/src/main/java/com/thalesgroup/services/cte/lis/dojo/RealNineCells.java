@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class RealNineCells extends NineCells{
 
-	private Set<Cell> cells;
+	protected Set<Cell> cells;
 	public RealNineCells(Set<Cell> cells,String name) {
 		this.name=name;
 		if (cells==null) throw new NullPointerException();

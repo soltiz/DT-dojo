@@ -180,4 +180,10 @@ public abstract class NineCells {
 	}
 	public String toString() { return getName();};
 	
+	public Set<Cell> intersectionWith(NineCells group) {
+		HashSet<Cell> result = new HashSet<Cell>(getCells());
+		result.retainAll(group.getCells());
+		return result;
+	}
+	
 }

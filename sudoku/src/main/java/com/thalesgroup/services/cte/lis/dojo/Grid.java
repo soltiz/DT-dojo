@@ -8,15 +8,15 @@ import java.util.Set;
 public class Grid {
 	Map<Integer, Line> lines;
 	Map<Integer, NineCells> columns;
-	Set<NineCells> squares;
+	Set<Square> squares;
 	Set<NineCells> allNineCells;
 	NineCells[][] squareGrid;
 
 	public Grid(Integer[][] values) {
 		lines = new HashMap<Integer, Line>();
 		columns = new HashMap<Integer, NineCells>();
-		squares = new HashSet<NineCells>();
-		squareGrid=new NineCells[3][3];
+		squares = new HashSet<Square>();
+		squareGrid=new Square[3][3];
 
 		for (int l = 0; l < 9; l++) {
 			Line line = new Line(l, values[l]);
@@ -33,12 +33,19 @@ public class Grid {
 		for (int sqrow = 0; sqrow < 3; sqrow++) {
 			for (int sqcol = 0; sqcol < 3; sqcol++) {
 				Set<Cell> squareCells = new HashSet<Cell>();
+				Set<NineCells> squareRows=new HashSet<NineCells>();
+				Set<NineCells> squareCols=new HashSet<NineCells>();
 				for (int row = 0; row < 3; row++) {
 					for (int col = 0; col < 3; col++) {
 						squareCells.add(lines.get(row + 3 * sqrow).getCell(col + 3 * sqcol));
 					}
+					squareRows.add(lines.get(3*sqrow+row));
+					for (int col = 0; col < 3; col++) {
+						squareCols.add(columns.get(col+3*sqcol));
+					}
 				}
-				NineCells square=new RealNineCells(squareCells,String.format("Square (srow=%d,scol=%d)", sqrow+1,sqcol+1));
+				
+				Square square=new Square(squareCells,squareRows, squareCols, sqrow, sqcol);
 				squares.add(square);
 				squareGrid[sqrow][sqcol]=square;
 			}
@@ -191,105 +198,16 @@ public class Grid {
 		return isSolved();
 	}
 
+	private void InterdictedSubregions() {
+		for (Square s:squares) {
+			s.InterdictedSubregions();
+		}
+		
+	}
+
 	private  NineCells getSquare(int i, int j) {
 		return squareGrid[i][j];
 	}
 
-	private void InterdictedSubregions() {
-		for (int sqRow=0;sqRow<3;sqRow++) {
-			for (int sqCol=0;sqCol<3;sqCol++) {
-					for (int iRow=0;iRow<3;iRow++) {
-						if ((sqRow==0) && (sqCol==2) && (iRow==2)) {
-							System.out.println();
-						}
-						Set<Integer> missingValues = alignedSubRegionsExcludedValues(sqRow, sqCol,iRow);
-						for (int otherIRow=0;otherIRow<3;otherIRow++) {
-							if (otherIRow!=iRow) {
-								for (int iCol=0;iCol<3;iCol++) {
-									getCell (3*sqRow+otherIRow,3*sqCol+iCol).removeImpossibleValues(missingValues);
-								}								
-							}
-						}
-					}
-			}
-			
-		}
-		
-	}
 	
-	boolean isValuePossibleInIRowOfSquare(int value, int sqRow, int sqCol, int iRow) {
-		for (int iCol=0;iCol<3;iCol++) {
-			if (getCell(3*sqRow+iRow,3*sqCol+iCol).getRemainingPossibleValues().contains(value)){
-					return true;
-			}
-		}
-		return false;
-	}
-
-	
-	
-	boolean isOnlyAllowedIRowForValueInSquare(int value, int sqRow, int sqCol,int iRow) {
-		for (int otherIRow=0;otherIRow<3;otherIRow++) {
-			if ((otherIRow!=iRow) && (isValuePossibleInIRowOfSquare(value,sqRow,sqCol,otherIRow))){
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	Integer getOnlyAllowedIRowForValueInSquare(int value, int sqRow, int sqCol) {
-		for (Integer iRow=0;iRow<3;iRow++) {
-			if (isOnlyAllowedIRowForValueInSquare(value, sqRow, sqCol, iRow)) {
-				return iRow;
-			}
-		}
-		return null;
-	}
-	
-	boolean isValueAllowedForIRowInLastSquare(int value, int sqRow, int sqCol, int iRow) {
-		for (Integer otherSqRow=0;otherSqRow<3;otherSqRow++) {
-			if (otherSqRow!=sqRow) {
-				Integer r=getOnlyAllowedIRowForValueInSquare(value,otherSqRow,sqCol);
-				if ((r!=null) && (r==iRow)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	
-	void interdictValuesInLastSquares() {
-		for (int sqRow=0;sqRow<3;sqRow++) {
-			for (int sqCol=0;sqCol<3;sqCol++) {
-				for (int iRow=0;iRow<3;iRow++) {
-					for (int value=1;value<10;value++) {
-						if 
-					}
-				}
-	}
-		
-	
-	
-	Set<Integer> alignedSubRegionsExcludedValues(int matchedSqRow,int excludedSqCol, int excludedRow) {
-		Set<Integer> excludedValues=Cell.getAllValues();
-				if ((sqRow==matchedSqRow) && (sqCol!=excludedSqCol)) {
-					excludedRowOne=
-					
-					
-					for (int iCol=0;iCol<3;iCol++) {
-						for (int iRow=0;iRow<3;iRow++) {
-							if (iRow!=excludedRow) {
-								
-								
-								
-								Cell c=getCell(iRow+3*sqRow, iCol+3*sqCol);
-								excludedValues.removeAll(c.getRemainingPossibleValues());
-							}
-						}
-					}
-				}
-			}
-		}
-		return excludedValues;
-	}
 }
