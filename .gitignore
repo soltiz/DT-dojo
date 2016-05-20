@@ -7,3 +7,4 @@ target
 .~*odt#
 .settings
 *.class
+*.xml
