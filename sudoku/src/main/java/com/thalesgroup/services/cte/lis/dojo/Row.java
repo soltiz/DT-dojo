@@ -6,30 +6,26 @@ import java.util.List;
 import java.util.Set;
 
 public class Row {
-	private Set<Integer> sudokuValues; 
 	
-	public List<Integer> numbersInLine = new ArrayList<Integer>();
+	private List<Integer> numbersInLine = new ArrayList<Integer>();
 
 	
 	public Row(){
-		this.sudokuValues = new HashSet<Integer>();
 		for (int i = 0; i< Sudoku.SUDOKU_SIZE; i++) {
-			this.sudokuValues.add(i+1);	
+					
+			this.numbersInLine.add(0);
+		}
+	}
+	
+	public Row(Integer[] problem){
+		this();
+		for(int positionColonne = 0; positionColonne < Sudoku.SUDOKU_SIZE; positionColonne ++){
+			this.numbersInLine.set(positionColonne, problem[positionColonne]);
 		}
 	}
 	
 	public Integer getNumberInLineAtPosition(int j) {
 		return this.numbersInLine.get(j);
-	}
-
-	public void add(int i) {
-		if(false == sudokuValues.contains(i)){
-			throw new RuntimeException("value is impossible"); 
-		}
-		
-		this.numbersInLine.add(i);
-
-
 	}
 
 	public int searchMissingValue() {
@@ -47,6 +43,30 @@ public class Row {
 		}
 		
 		return possibleValues.iterator().next();
+	}
+
+	public int findEmptyCase() {
+		int posEmptyCase=0;
+		for(Integer number : numbersInLine){
+			if(number == 0){
+				break;
+			}
+			posEmptyCase ++;	
+		}
+		return posEmptyCase;
+	}
+
+	public void setCellIfEmpty(int colonne, int value) {
+		
+		if(false == Sudoku.getAvailableValues().contains(value)){
+			throw new RuntimeException("value is impossible à la position " + colonne + "avec la valeur " + value); 
+		}
+		
+		if(this.getNumberInLineAtPosition(colonne) != 0){
+			throw new RuntimeException("pb cell is not empty"); 
+		}
+				
+		this.numbersInLine.set(colonne, value);
 	}
 
 }

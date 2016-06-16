@@ -1,8 +1,9 @@
 package com.thalesgroup.services.cte.lis.dojo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Set;
 
 public class Sudoku {
 
@@ -10,11 +11,9 @@ public class Sudoku {
 	List<Row> rowsList = new ArrayList<Row>();
 
 	public Sudoku(Integer[][] problem) {
-		for(int i = 0; i < SUDOKU_SIZE; i ++){
-			Row row = new Row();
-			for(int j = 0; j < SUDOKU_SIZE; j ++){
-				row.numbersInLine.add(problem[i][j]);
-			}
+		for(int positionLigne = 0; positionLigne < SUDOKU_SIZE; positionLigne ++){
+			Row row = new Row(problem[positionLigne]);
+			
 			rowsList.add(row);
 		}
 		
@@ -24,9 +23,10 @@ public class Sudoku {
 		
 		for (Row row : rowsList) {
 			try{
-				row.searchMissingValue();
-				//trouverCaseVide
-				//trouverCasevVide.valeur = row.searchMissingValue(); 
+				int value = row.searchMissingValue();
+				int index= row.findEmptyCase();				
+				row.setCellIfEmpty(index, value);
+				
 			}catch(Exception e){
 				System.out.println("Not implemented");
 			}
@@ -38,21 +38,27 @@ public class Sudoku {
 	public Integer[][] getAsTable() {
 
 		Integer[][] table = new Integer[SUDOKU_SIZE][SUDOKU_SIZE];
-		for(int i=0; i<SUDOKU_SIZE ; i++){
-			for(int j=0; j<SUDOKU_SIZE; j++){
-				table[i][j] = rowsList.get(i).getNumberInLineAtPosition(j);
+		for(int positionLigne=0; positionLigne<SUDOKU_SIZE ; positionLigne++){
+			for(int positionColonne=0; positionColonne<SUDOKU_SIZE; positionColonne++){
+				table[positionLigne][positionColonne] = rowsList.get(positionLigne).getNumberInLineAtPosition(positionColonne);
 			}
 		}
 		return table;
-		//return grid.getAsTable();
 	}
 	
 
 
 	public int remainingCellsToSolve() {
 		return -1;
-	//S	return grid.remainingCellsToSolve();
 	}
 	
+	public static Set<Integer> getAvailableValues(){
+		Set<Integer> sudokuValues = new HashSet<Integer>();
+		for (int i = 0; i< Sudoku.SUDOKU_SIZE; i++) {
+			sudokuValues.add(i+1);
+		}
+		
+		return sudokuValues;
+	}
 
 }
