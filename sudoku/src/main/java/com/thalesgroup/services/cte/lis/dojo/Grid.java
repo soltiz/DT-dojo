@@ -3,6 +3,7 @@ package com.thalesgroup.services.cte.lis.dojo;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Grid {
@@ -198,11 +199,39 @@ public class Grid {
 		return isSolved();
 	}
 
+	public static Set<Integer> allSqNums() {
+		Set<Integer> possibleIndexes=new HashSet<Integer>();
+		possibleIndexes.add(0);
+		possibleIndexes.add(1);
+		possibleIndexes.add(2);
+		return possibleIndexes;
+	}
+	
 	private void InterdictedSubregions() {
-		for (Square s:squares) {
-			s.InterdictedSubregions();
+		for (Integer sqRow:allSqNums()) {
+			for (Integer rowNum:allSqNums()) {
+				Line line = lines.get(3*sqRow+rowNum);
+				for (Integer value:Cell.getAllValues()) {
+					Set<Integer> possibleSqCols = allSqNums();
+					for (Integer sqCol:allSqNums()) {
+						for (Integer colNum:allSqNums()) {
+							if (line.getCell(3*sqCol+colNum).getRemainingPossibleValues().contains(value)) {
+								possibleSqCols.remove(sqCol);
+							}
+						}
+					}
+					if (possibleSqCols.size()==1) {
+						for (Integer otherLine:allSqNums()) {
+							if (otherLine!=rowNum) {
+								for (Integer colNum:allSqNums()) {							
+									getCell(sqRow*3+rowNum, possibleSqCols.iterator().next()*3+colNum).removeImpossibleValue(value);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
-		
 	}
 
 	private  NineCells getSquare(int i, int j) {

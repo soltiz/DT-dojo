@@ -19,10 +19,10 @@ public class Square extends RealNineCells {
 	}
 
 	public void InterdictedSubregions() {
-		Set<NineCells> regionsSet=new HashSet<NineCells>(columns);
-		for (NineCells region:)
-		// TODO Auto-generated method stub
-		
+//		Set<NineCells> regionsSet=new HashSet<NineCells>(columns);
+//		for (NineCells region:)
+//		// TODO Auto-generated method stub
+//		
 	}
 }
 
