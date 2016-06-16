@@ -5,19 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Row {
+public class RowOrColumn {
 	
 	private List<Integer> numbersInLine = new ArrayList<Integer>();
 
 	
-	public Row(){
+	public RowOrColumn(){
 		for (int i = 0; i< Sudoku.SUDOKU_SIZE; i++) {
 					
 			this.numbersInLine.add(0);
 		}
 	}
 	
-	public Row(Integer[] problem){
+	public RowOrColumn(Integer[] problem){
 		this();
 		for(int positionColonne = 0; positionColonne < Sudoku.SUDOKU_SIZE; positionColonne ++){
 			this.numbersInLine.set(positionColonne, problem[positionColonne]);
@@ -56,17 +56,17 @@ public class Row {
 		return posEmptyCase;
 	}
 
-	public void setCellIfEmpty(int colonne, int value) {
+	public void setCellIfEmpty(int indexInline, int value) {
 		
 		if(false == Sudoku.getAvailableValues().contains(value)){
-			throw new RuntimeException("value is impossible à la position " + colonne + "avec la valeur " + value); 
+			throw new RuntimeException("value is impossible à la position " + indexInline + "avec la valeur " + value); 
 		}
 		
-		if(this.getNumberInLineAtPosition(colonne) != 0){
+		if(this.getNumberInLineAtPosition(indexInline) != 0){
 			throw new RuntimeException("pb cell is not empty"); 
 		}
 				
-		this.numbersInLine.set(colonne, value);
+		this.numbersInLine.set(indexInline, value);
 	}
 
 }

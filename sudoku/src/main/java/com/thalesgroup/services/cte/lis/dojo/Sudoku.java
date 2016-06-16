@@ -8,24 +8,53 @@ import java.util.Set;
 public class Sudoku {
 
 	public static final int SUDOKU_SIZE = 9;
-	List<Row> rowsList = new ArrayList<Row>();
+	List<RowOrColumn> rowsList = new ArrayList<RowOrColumn>();
+	List<RowOrColumn> columnsList = new ArrayList<RowOrColumn>();
 
 	public Sudoku(Integer[][] problem) {
 		for(int positionLigne = 0; positionLigne < SUDOKU_SIZE; positionLigne ++){
-			Row row = new Row(problem[positionLigne]);
-			
+			RowOrColumn row = new RowOrColumn(problem[positionLigne]);
 			rowsList.add(row);
+		}
+		
+		for(int positionColumn = 0; positionColumn < SUDOKU_SIZE; positionColumn ++){
+			RowOrColumn column = new RowOrColumn(getInvertedArray(problem)[positionColumn]);
+			columnsList.add(column);
 		}
 		
 	}
 	
+	public static Integer[][] getInvertedArray(Integer[][] input){
+		int dimAlength = input.length;
+		Integer[][] output = new Integer[dimAlength][dimAlength];
+		System.out.println("transforming... "+dimAlength+", "+dimAlength);
+		for(int i=0; i<dimAlength; i++){
+			output[i] = new Integer[dimAlength];
+			for(int j=0; j<dimAlength; j++){
+				output[i][j] = input[j][i];
+			}
+		}
+		return output;
+	}
+	
 	public void solve(){
 		
-		for (Row row : rowsList) {
+		for (RowOrColumn row : rowsList) {
 			try{
 				int value = row.searchMissingValue();
 				int index= row.findEmptyCase();				
 				row.setCellIfEmpty(index, value);
+				
+			}catch(Exception e){
+				System.out.println("Not implemented");
+			}
+		}
+		
+		for (RowOrColumn column : columnsList) {
+			try{
+				int value = column.searchMissingValue();
+				int index= column.findEmptyCase();				
+				column.setCellIfEmpty(index, value);
 				
 			}catch(Exception e){
 				System.out.println("Not implemented");
@@ -40,10 +69,10 @@ public class Sudoku {
 		Integer[][] table = new Integer[SUDOKU_SIZE][SUDOKU_SIZE];
 		for(int positionLigne=0; positionLigne<SUDOKU_SIZE ; positionLigne++){
 			for(int positionColonne=0; positionColonne<SUDOKU_SIZE; positionColonne++){
-				table[positionLigne][positionColonne] = rowsList.get(positionLigne).getNumberInLineAtPosition(positionColonne);
+				table[positionLigne][positionColonne] = columnsList.get(positionLigne).getNumberInLineAtPosition(positionColonne);
 			}
 		}
-		return table;
+		return getInvertedArray(table);
 	}
 	
 

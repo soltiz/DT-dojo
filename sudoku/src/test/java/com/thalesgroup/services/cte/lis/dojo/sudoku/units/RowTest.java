@@ -3,14 +3,14 @@ package com.thalesgroup.services.cte.lis.dojo.sudoku.units;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.thalesgroup.services.cte.lis.dojo.Row;
+import com.thalesgroup.services.cte.lis.dojo.RowOrColumn;
 import com.thalesgroup.services.cte.lis.dojo.Sudoku;
 
 public class RowTest {
 
 	@Test
 	public void testValeurManquante() {
-		Row row = new Row();
+		RowOrColumn row = new RowOrColumn();
 		int result = 0;
 		// given
 		for(int i = 0; i < Sudoku.SUDOKU_SIZE - 1; i ++){
@@ -26,7 +26,7 @@ public class RowTest {
 	
 	@Test
 	public void findEmptyCase(){
-		Row row = new Row();
+		RowOrColumn row = new RowOrColumn();
 		// given
 		for(int i = 0; i < Sudoku.SUDOKU_SIZE - 1; i ++){
 			row.setCellIfEmpty(i, i+1);
@@ -40,7 +40,7 @@ public class RowTest {
 	
 	@Test
 	public void testSetCellIfEmpty(){
-		Row row = new Row();
+		RowOrColumn row = new RowOrColumn();
 		//when
 		row.setCellIfEmpty(1,6);
 		
@@ -50,7 +50,7 @@ public class RowTest {
 	
 	@Test(expectedExceptions=RuntimeException.class)
 	public void testSetCellIfNotEmpty(){
-		Row row = new Row();
+		RowOrColumn row = new RowOrColumn();
 		//when
 		row.setCellIfEmpty(1,6);
 		row.setCellIfEmpty(1,7);
@@ -58,4 +58,22 @@ public class RowTest {
 		//then
 		
 	}
+	
+	@Test
+	public void testArrayInversion() {
+		//given
+		Integer[][] input = new Integer[][]{
+				{  1,2 },
+				{  4,5}};
+		Integer[][] expected = new Integer[][]{
+				{  1,4 },
+				{  2,5}};
+		
+		//when
+		Integer[][] output = Sudoku.getInvertedArray(input);
+	
+	//then 
+	Assert.assertEquals(output, expected);
 }
+}
+
