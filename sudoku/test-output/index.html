@@ -128,10 +128,15 @@
                   <a name="testValueOneSubregionOnly">
                   </a> <!-- testValueOneSubregionOnly -->
                   <span class="method-name">testValueOneSubregionOnly</span>
-                  <div class="stack-trace">java.lang.AssertionError: Expected value &apos;2&apos; in cell (row=2,column=8) but obtained value &apos;0&apos; instead.
-	at org.testng.Assert.fail(Assert.java:94)
-	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem$CellChecker.shallContain(SudokuTest.java:81)
-	at com.thalesgroup.services.cte.lis.dojo.Story7Test.testValueOneSubregionOnly(Story7Test.java:29)
+                  <div class="stack-trace">java.security.InvalidParameterException: Tried to set value &apos;4&apos; for cell &apos;(row=3,col=9)&apos; but cell &apos;(row=3,col=7)&apos; already has it !
+	at com.thalesgroup.services.cte.lis.dojo.Cell.setValue(Cell.java:77)
+	at com.thalesgroup.services.cte.lis.dojo.Cell.removeImpossibleValue(Cell.java:33)
+	at com.thalesgroup.services.cte.lis.dojo.NineCells.NGroupsValuesLock(NineCells.java:165)
+	at com.thalesgroup.services.cte.lis.dojo.Grid.NGroupsValuesLock(Grid.java:138)
+	at com.thalesgroup.services.cte.lis.dojo.Grid.solve(Grid.java:187)
+	at com.thalesgroup.services.cte.lis.dojo.Sudoku.solve(Sudoku.java:11)
+	at com.thalesgroup.services.cte.lis.dojo.SudokuTest$SolvedProblem.&lt;init&gt;(SudokuTest.java:51)
+	at com.thalesgroup.services.cte.lis.dojo.Story7Test.testValueOneSubregionOnly(Story7Test.java:14)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -165,7 +170,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse--1503871926/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse-1021699634/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -174,7 +179,11 @@
 &lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Default suite&quot;&gt;
   &lt;test verbose=&quot;2&quot; name=&quot;Default test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.Story7Test&quot;/&gt;
+      &lt;class name=&quot;com.thalesgroup.services.cte.lis.dojo.Story7Test&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;testValueOneSubregionOnly&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- com.thalesgroup.services.cte.lis.dojo.Story7Test --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -218,12 +227,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testValueOneSubregionOnly')
 data.setCell(0, 2, 'com.thalesgroup.services.cte.lis.dojo.Story7Test')
-data.setCell(0, 3, 207);
+data.setCell(0, 3, 80);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 207 ms</span>
+              <span class="suite-total-time">Total running time: 80 ms</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->

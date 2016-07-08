@@ -72,7 +72,7 @@ public class Cell {
 			}
 			for (NineCells group:knownContainingNineCells) {
 				for (Cell c:group.getCells()) {
-					if (c.getValue()==i) {
+					if ((c!=this) && (c.getValue()==i)) {
 						String error=String.format("Tried to set value '%d' for cell '%s' but cell '%s' already has it !",i,this,c);
 						throw new InvalidParameterException(error);
 						

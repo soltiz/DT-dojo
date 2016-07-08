@@ -224,7 +224,7 @@ public class Grid {
 						for (Integer otherLine:allSqNums()) {
 							if (otherLine!=rowNum) {
 								for (Integer colNum:allSqNums()) {							
-									getCell(sqRow*3+rowNum, possibleSqCols.iterator().next()*3+colNum).removeImpossibleValue(value);
+									getCell(sqRow*3+otherLine, possibleSqCols.iterator().next()*3+colNum).removeImpossibleValue(value);
 								}
 							}
 						}
