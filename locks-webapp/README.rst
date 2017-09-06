@@ -39,7 +39,8 @@ Un verrou porte sur une place d'un spectacle.
 Story 1
 =======
 
-Sur requête PUT d'un verrou sur une place (.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9?owner=me), le service renvoie le détail d'un verrou, contenant un id unique.
+Sur requête PUT d'un verrou sur une place (.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9?owner=me),
+le service renvoie le détail d'un verrou, contenant un id unique.
 
     Rappel : PUT est idempotent (doit être testé)
 
