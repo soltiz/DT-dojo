@@ -67,7 +67,7 @@ sur requête PUT d'un verrou sur une place déja verrouillee, avec un owner diff
 Story 4
 =======
 
-Le verrou renvoyé par le service à la création contient une date de création et une date d'expiration.
+Le verrou renvoyé par le service à la création contient une date de création et une date d'expiration (30 minutes plus tard).
 
 
 
