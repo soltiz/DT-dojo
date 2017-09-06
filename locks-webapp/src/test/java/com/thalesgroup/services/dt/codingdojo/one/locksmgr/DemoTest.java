@@ -46,7 +46,7 @@ public class DemoTest    {
 	    	}
 	    }
 
-	    //@Test
+	    @Test
 	    public void signatureLibraryAvailable() {
 	    	String dataToSign="AnImportantTopic_!_OwnedByMe_!_20140301181213.340";
 	    	Long computedSignature=null;
@@ -61,19 +61,18 @@ public class DemoTest    {
 	    	assertTrue(SignatureHelper.isSignatureValid(dataToSign, computedSignature));
 	    }
 	    
-//	@Test
-//	public void getDemoObject() throws InterruptedException{
-//		
-//		
-//		DemoObject o=serviceProxy.getOneObject("theOption", "theName");
-//		assertEquals("theName_withOption_theOption",o.getName());
-//	}
-//	
-//	
-//	@Test(expected=NotFoundException.class)
-//	public void refusedGetObject() throws InterruptedException{
-//		serviceProxy.getOneObject("theOption", "doesNotExist");
-//	}
+	@Test
+	public void getDemoObject() throws InterruptedException{
+		
+		
+		DemoObject o=serviceProxy.getOneObject("theOption", "theName");
+		assertEquals("theName_withOption_theOption",o.getName());
+	}
+	
+	@Test(expected=NotFoundException.class)
+	public void refusedGetObject() throws InterruptedException{
+		serviceProxy.getOneObject("theOption", "doesNotExist");
+	}
 	
 	
 	
