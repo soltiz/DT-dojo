@@ -31,7 +31,8 @@ Invoke the web service using curl (or best : using POSTMAN chrome extension):
     Stories
 ***************
 
-Dans le cadre d'un système de réservation de places de spectacles, on veut réaliser l'un des micro-services du système : celui en charge de bloquer les places pendant la durée de la phase d'achat pour éviter de vendre plusieurs fois la même place.
+Dans le cadre d'un système de réservation de places de spectacles, on veut réaliser l'un des micro-services du système : 
+celui en charge de bloquer les places pendant la durée de la phase d'achat pour éviter de vendre plusieurs fois la même place.
 
 Un verrou porte sur une place d'un spectacle.
 
@@ -49,13 +50,15 @@ le service renvoie le détail d'un verrou, contenant un id unique.
 Story 2.a
 =========
 
-sur requête GET d'un verrou sur une place (.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9), le service renvoie le détail du verrou existant, ou 404 si pas de verrou créé sur la place.
+sur requête GET d'un verrou sur une place (.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9), 
+le service renvoie le détail du verrou existant, ou 404 si pas de verrou créé sur la place.
 
 
 Story 2.b:
 ==========
 
-Sur requête GET des verrous d'un spectacle (.../shows/WestSideStory-Paris-20170906-2030/seatlocks), on obtient le détail de tous les verrous du spectacle, ou 404 si pas de verrous sur le spectacle
+Sur requête GET des verrous d'un spectacle (.../shows/WestSideStory-Paris-20170906-2030/seatlocks), 
+on obtient le détail de tous les verrous du spectacle, ou 404 si pas de verrous sur le spectacle
 
 
 Story 3
