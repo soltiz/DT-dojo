@@ -64,7 +64,8 @@ on obtient le détail de tous les verrous du spectacle, ou 404 si pas de verrous
 Story 3
 =======
 
-sur requête PUT d'un verrou sur une place déja verrouillee, avec un owner différent de celui du verrou existant, le service rejette la demande
+sur requête PUT d'un verrou sur une place déja verrouillee, avec un owner différent de celui du verrou existant,
+ le service rejette la demande
 
 
 

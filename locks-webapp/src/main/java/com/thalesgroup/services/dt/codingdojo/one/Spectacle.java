@@ -1,15 +1,12 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Spectacle {
 	
 	private Map<String,Lock> lockByPlaceNameMap = new HashMap<>();
-
-	private Map<String,Lock> getPlaceNameMap(){
-		return lockByPlaceNameMap;
-	}
 	
 	public void setLockForPlace(String placeName, Lock lock){
 		lockByPlaceNameMap.put(placeName, lock);
@@ -19,5 +16,8 @@ public class Spectacle {
 		return lockByPlaceNameMap.get(placeName);
 	}
 	
+	public Collection<Lock> getAllLocks(){
+		return lockByPlaceNameMap.values();
+	}
 	
 }

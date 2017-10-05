@@ -11,7 +11,7 @@ public class LockTest {
 	//Show state
 	@Test
 	public void showState(){
-		Lock lock = new Lock("René");
+		Lock lock = new Lock("René","barbar","K9");
 		
 		assertNotNull(lock.getIdLock());
 	}	

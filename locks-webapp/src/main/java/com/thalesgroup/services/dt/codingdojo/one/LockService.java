@@ -1,5 +1,7 @@
 package com.thalesgroup.services.dt.codingdojo.one;
 
+import java.util.Collection;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -9,10 +11,12 @@ import javax.ws.rs.QueryParam;
 @Path("/shows")
 public interface LockService {
 
+	
+	//(.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9)
 	@GET
-	@Path("/{oneparam}")
-	public DemoObject getOneObject(@QueryParam("paramtwo") String option,
-			@PathParam("oneparam") String objectName);
+	@Path("/{spectacle}/seatlocks/{place}")
+	public Lock consulterVerrou(@PathParam("spectacle") String spectacleName,
+			@PathParam("place") String placeName);
 	
 	//(.../shows/WestSideStory-Paris-20170906-2030/seatlocks/K9?owner=me)
 	@PUT
@@ -21,4 +25,7 @@ public interface LockService {
 			@PathParam("spectacle") String spectacleName,
 			@PathParam("place") String placeName);
 	
+	@GET
+	@Path("/{spectacle}/seatlocks")
+	Collection<Lock> getVerrous(@PathParam("spectacle")  String nomSpectacle) ;
 }
