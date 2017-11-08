@@ -1,4 +1,4 @@
-package com.thalesgroup.services.dt.codingdojo.one;
+package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
 import java.util.Collection;
 

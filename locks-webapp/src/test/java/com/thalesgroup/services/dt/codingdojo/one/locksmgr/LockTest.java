@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.thalesgroup.services.dt.codingdojo.one.Lock;
+import com.thalesgroup.services.dt.codingdojo.one.locksmgr.Lock;
 
 public class LockTest {
 	

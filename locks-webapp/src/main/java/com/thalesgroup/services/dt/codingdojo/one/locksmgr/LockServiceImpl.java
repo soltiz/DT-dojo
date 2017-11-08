@@ -1,5 +1,6 @@
-package com.thalesgroup.services.dt.codingdojo.one;
+package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,19 +35,25 @@ public class LockServiceImpl implements LockService {
 		Lock lock;
 		
 		if(!store.containsKey(spectacleName)){
+			//Le spectacle n'existe pas 
 			lock = new Lock(userName,spectacleName,placeName);
 			Spectacle spectacle = new Spectacle();
 			spectacle.setLockForPlace(placeName, lock);
 			store.put(spectacleName, spectacle);
 		}
 		else{
-			if(store.get(spectacleName).getLockForPlace(placeName) == null){
+			lock = store.get(spectacleName).getLockForPlace(placeName);
+			if(lock == null){
+				//Le spectacle existe mais la place est libre 
 				lock = new Lock(userName,spectacleName,placeName);
 				store.get(spectacleName).setLockForPlace(placeName, lock);
 				store.put(spectacleName, store.get(spectacleName));
 			}
 			else{
-				lock = store.get(spectacleName).getLockForPlace(placeName);
+				//Le spectacle existe et la place est occupée
+				if(lock.getOwner() != userName){
+					throw new WebApplicationException(HttpStatus.CONFLICT_409);
+				}
 			}
 		}
 		return lock;
@@ -62,10 +69,17 @@ public class LockServiceImpl implements LockService {
 		Spectacle spectacle = store.get(spectacleName);
 		
 		if (spectacle == null || spectacle.getLockForPlace(placeName) == null) {
+			//spectacle n'existe pas ou verrou inexistant
 			throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
 		}
 		
-		return spectacle.getLockForPlace(placeName);
+		Lock lock = spectacle.getLockForPlace(placeName);
+		
+		if(lock.getExpirationDate().isBefore(Instant.now())){
+			throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+		}
+		
+		return lock;
 	}
 	
 	

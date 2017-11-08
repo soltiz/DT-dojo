@@ -86,10 +86,13 @@ Story 5 : Sur requête PUT ou GET d'un verrou existant, au delà de la date d'e
 Story 6
 =======
 
-Les représentations de verrous retournées sur requête PUT ou GET d'un spectacle contiennent un champ « signature » calculé par le serveur, permettant de vérifier l'authenticité du verrou grâce à une clé publique associée au service.  
+Les représentations de verrous retournées sur requête PUT ou 
+GET d'un spectacle contiennent un champ « signature » calculé par le serveur, 
+permettant de vérifier l'authenticité du verrou grâce à une clé publique associée au service.  
 
-Les données signées sont une représentation textuelle du topic, du propriétaire et de la date courante d'expiration, sous la forme : 
-«TOPIC_ !_OWNER_ !_AAAAMMJJHHmmss.mse »
+Les données signées sont une représentation textuelle du topic, 
+du propriétaire et de la date courante d'expiration, sous la forme : 
+«SPECTACLE_!_PLACE_!_OWNER_!_AAAAMMJJHHmmss.mse »
 
 
     Nota : Cette signature est calculée et vérifiable par des fonctions publiques (fournies avec le futur produit)
@@ -98,7 +101,10 @@ Les données signées sont une représentation textuelle du topic, du propriéta
 Story 7
 =======
 
-		Le service peut répondre de façon nominale à 8 requêtes PUT concernant des verrous de topics différents arrivant au service dans un intervalle d'1 seconde. Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 3 secondes.
+		Le service peut répondre de façon nominale à 8 requêtes PUT concernant des verrous 
+		de topics différents arrivant au service dans un intervalle d'1 seconde. 
+		Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 1/2 
+		secondes.
 
 
 

@@ -3,8 +3,14 @@ package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
@@ -12,12 +18,9 @@ import javax.ws.rs.WebApplicationException;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.test.AssertThrows;
 
-import com.thalesgroup.services.dt.codingdojo.one.Lock;
-import com.thalesgroup.services.dt.codingdojo.one.LockServiceImpl;
+import com.thalesgroup.services.dt.codingdojo.one.signature.SignatureHelper;
 
 public class LockServiceImplTest {
 	
@@ -33,8 +36,17 @@ public class LockServiceImplTest {
 		lock = lockService.placerVerrou("Bernard", "OSS 117", "g5");
 		
 		assertEquals(id, lock.getIdLock());
-
 		
+		Instant creationdate = lock.getCreationDate();
+		
+		//«SPECTACLE_!_PLACE_!_OWNER_!_AAAAMMJJHHmmss.mse »
+		ZonedDateTime creationDt = ZonedDateTime.ofInstant(creationdate,ZoneOffset.UTC);
+
+		String dataToSign = "OSS 117_!_g5_!_Bernard_!_" + DateTimeFormatter.ofPattern("YYYYMMddHHmmss").format(creationDt);
+		
+		long computedSignature = SignatureHelper.signatureOf(dataToSign);
+		
+		assertEquals(computedSignature, lock.getSignature());
 	}
 	
 	@Test
@@ -60,10 +72,7 @@ public class LockServiceImplTest {
 	
 	@Test
 	public void consulterVerrouSiInexistant() {	
-		
-		
-		lockService.placerVerrou("Bernard", "OSS 117", "g5");		
-		
+			
 		try {
 			lockService.consulterVerrou("OSS 117", "g6");
 			fail();
@@ -102,9 +111,31 @@ public class LockServiceImplTest {
 		listeVerrousAttendus.sort(lockComparator);
 		listVerrouExistant.sort(lockComparator);
 		
+		Assert.assertEquals(listeVerrousAttendus.size(), listVerrouExistant.size());
+		
+		Iterator<Lock> monIterateur = listVerrouExistant.iterator();
+		for (Lock monVerrouAttendu : listeVerrousAttendus) {
+			
+			Utils.compareLock(monVerrouAttendu, monIterateur.next());
+
+		}
 	
 		//will fail
-		Assert.assertEquals(listeVerrousAttendus, listVerrouExistant);	
+		//Assert.assertEquals(listeVerrousAttendus, listVerrouExistant);	
+	}
+	
+	@Test
+	public void placerVerrouConflictuel(){
+		
+		Lock lock = lockService.placerVerrou("Bernard", "OSS 117", "g5");		
+				
+		try {
+			Lock lock2 = lockService.placerVerrou("Patrick", "OSS 117", "g5");
+			fail();
+		}
+		catch(WebApplicationException wae) {
+			assertEquals(HttpStatus.CONFLICT_409, wae.getResponse().getStatus());
+		}
 	}
 	
 	@After
@@ -113,4 +144,51 @@ public class LockServiceImplTest {
 		LockServiceImpl.clearStore();
 	}
 
+	@Test
+	public void verifierExpiration() {
+		
+		Lock lock = lockService.placerVerrou("Bernard", "OSS 117", "g5");
+
+		assertEquals(lock.getExpirationDate(), lock.getCreationDate().plusSeconds(1800));
+	}
+	
+	@Test
+	public void comparaisonVerrouExpire(){
+		
+		lockService.placerVerrou("Bernard", "OSS 117", "g5");
+		//setter la date dexpiration
+		
+		Lock lock = lockService.consulterVerrou("OSS 117", "g5");
+		lock.setDateCreation(lock.getCreationDate().minusSeconds(1900));
+		lock.setDateExpiration(lock.getExpirationDate().minusSeconds(1900));
+		
+		try {
+			lockService.consulterVerrou("OSS 117", "g5");
+			fail();
+		}
+		catch(WebApplicationException wae) {
+			assertEquals(HttpStatus.NOT_FOUND_404, wae.getResponse().getStatus());
+		}
+	}
+	
+	@Test
+	public void verifierPerformances() {
+		
+		int i = 0;
+		
+		Instant start = Instant.now();
+		
+		// Lancement des 8 requêtes PUT
+		while(i <= 7) {
+			Lock lock = lockService.placerVerrou("Bernard", "OSS 117", "G"+i);
+			i++;
+		}
+		
+		Instant end = Instant.now();
+		
+		int nbMillisecondes = Duration.between(start, end).getNano()/1_000_000;
+		
+		System.out.println(nbMillisecondes);		
+		Assert.assertTrue(nbMillisecondes < 1500);
+	}	
 }
