@@ -8,13 +8,15 @@ public class SignatureHelper {
 		long signature=1;
 		long takestime=1;
 		synchronized(privateKey) {
-			nbRunningSignatures++;
-			if (nbRunningSignatures>2) {
-				throw new RuntimeException("Multithread is badly supported by signature library : unable to run more than 2 parallel computation");
+			if (nbRunningSignatures>1) {
+				throw new RuntimeException("Open-source signature 'community' release license reached. Not allowed to run more than 2 parallel computation");
 			}
+			nbRunningSignatures++;
+
 		}
+		long finishMs=System.currentTimeMillis()+100;
 		StringBuilder shouldTakeSomeTime = new StringBuilder();
-		for (int i=0;i<20000;i++) {
+		for (int i=0;i<20;i++) {
 			shouldTakeSomeTime=shouldTakeSomeTime.append(dataToSign);
 		}
 		  for (char ch : shouldTakeSomeTime.toString().toCharArray()){
@@ -23,6 +25,11 @@ public class SignatureHelper {
 			  takestime=((long) Math.pow(ascii+privateKey,Math.pow(takestime*privateKey,privateKey))) 	  | ((long)(Math.sqrt(takestime))*privateKey);
 			  
 		    }
+		  while (System.currentTimeMillis()<finishMs) { try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}}
 		  synchronized(privateKey) {
 			  nbRunningSignatures--;
 		}
