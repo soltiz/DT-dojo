@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -124,6 +125,7 @@ public class LockServiceImplTest {
 		//Assert.assertEquals(listeVerrousAttendus, listVerrouExistant);	
 	}
 	
+
 	@Test
 	public void placerVerrouConflictuel(){
 		
@@ -177,7 +179,6 @@ public class LockServiceImplTest {
 		int i = 0;
 		
 		Instant start = Instant.now();
-		
 		// Lancement des 8 requêtes PUT
 		while(i <= 7) {
 			Lock lock = lockService.placerVerrou("Bernard", "OSS 117", "G"+i);
@@ -186,9 +187,11 @@ public class LockServiceImplTest {
 		
 		Instant end = Instant.now();
 		
-		int nbMillisecondes = Duration.between(start, end).getNano()/1_000_000;
+	    long nbMillisecondes = ChronoUnit.MILLIS.between(start,end);
+
+		//int nbMillisecondes = Duration.between(start, end). ) .getNano()/1_000_000;
 		
-		System.out.println(nbMillisecondes);		
+		System.out.println(nbMillisecondes);
 		Assert.assertTrue(nbMillisecondes < 1500);
 	}	
 }

@@ -1,16 +1,14 @@
 package com.thalesgroup.services.dt.codingdojo.one.locksmgr;
 
-import java.text.DateFormat;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.text.DateFormatter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.thalesgroup.services.dt.codingdojo.one.signature.SignatureHelper;
 
@@ -22,8 +20,12 @@ public class Lock {
 	private String owner;
 	private String spectacleName;
 	private String place;
+	@XmlJavaTypeAdapter(MyInstantAdapter.class)
 	private Instant creationDate;
+	@XmlJavaTypeAdapter(MyInstantAdapter.class)
 	private Instant expirationDate;
+	
+	
 	private long signatureLock;
 
 	private static Long compteur = 0L;

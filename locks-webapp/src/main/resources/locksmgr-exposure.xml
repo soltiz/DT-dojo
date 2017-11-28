@@ -17,7 +17,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
 	<bean id="locksService"
-		class="com.thalesgroup.services.dt.codingdojo.one.LockServiceImpl"
+		class="com.thalesgroup.services.dt.codingdojo.one.locksmgr.LockServiceImpl"
 		autowire="byName">
 	</bean>
 
