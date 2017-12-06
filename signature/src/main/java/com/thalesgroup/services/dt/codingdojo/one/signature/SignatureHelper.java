@@ -14,7 +14,7 @@ public class SignatureHelper {
 			nbRunningSignatures++;
 
 		}
-		long finishMs=System.currentTimeMillis()+500;
+		long finishMs=System.currentTimeMillis()+100;
 		StringBuilder shouldTakeSomeTime = new StringBuilder();
 		for (int i=0;i<20;i++) {
 			shouldTakeSomeTime=shouldTakeSomeTime.append(dataToSign);

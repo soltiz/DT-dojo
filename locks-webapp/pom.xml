@@ -76,6 +76,18 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.1.1.v20140108</version>
 <!--  			<version>8.1.14.v20131031</version> -->
+				   <dependencies>
+				        <dependency>
+				            <groupId>org.ow2.asm</groupId>
+				            <artifactId>asm</artifactId>
+				            <version>5.0.2</version>
+				        </dependency>
+				        <dependency>
+				            <groupId>org.ow2.asm</groupId>
+				            <artifactId>asm-commons</artifactId>
+				            <version>5.0.2</version>
+				        </dependency>
+				    </dependencies>
 				<configuration>
 					<!-- scanIntervalSeconds Optional. The pause in seconds between sweeps 
 						of the webapp to check for changes and automatically hot redeploy if any 
