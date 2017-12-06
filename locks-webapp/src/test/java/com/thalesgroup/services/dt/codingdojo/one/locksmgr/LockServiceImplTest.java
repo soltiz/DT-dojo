@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.WebApplicationException;
 
@@ -32,12 +34,6 @@ public class LockServiceImplTest {
 		
 		Lock lock = lockService.placerVerrou("Bernard", "OSS 117", "g5");
 		
-		Long id = lock.getIdLock();
-
-		lock = lockService.placerVerrou("Bernard", "OSS 117", "g5");
-		
-		assertEquals(id, lock.getIdLock());
-		
 		Instant creationdate = lock.getCreationDate();
 		
 		//«SPECTACLE_!_PLACE_!_OWNER_!_AAAAMMJJHHmmss.mse »
@@ -45,9 +41,22 @@ public class LockServiceImplTest {
 
 		String dataToSign = "OSS 117_!_g5_!_Bernard_!_" + DateTimeFormatter.ofPattern("YYYYMMddHHmmss").format(creationDt);
 		
-		long computedSignature = SignatureHelper.signatureOf(dataToSign);
+		Long computedSignature = SignatureHelper.signatureOf(dataToSign);
 		
 		assertEquals(computedSignature, lock.getSignature());
+	}
+	
+	@Test
+	public void placerLockIndempotence(){
+		Lock lock = lockService.placerVerrou("Johnny", "OSS 117", "g5");
+		
+		Long id = lock.getIdLock();
+		
+		String haliday = "John";
+
+		lock = lockService.placerVerrou(haliday+"ny", "OSS 117", "g5");
+		
+		assertEquals(id, lock.getIdLock());
 	}
 	
 	@Test
@@ -194,4 +203,114 @@ public class LockServiceImplTest {
 		System.out.println(nbMillisecondes);
 		Assert.assertTrue(nbMillisecondes < 1500);
 	}	
+	
+	@Test()
+	public void placerLockSimulanee() throws InterruptedException {
+
+		for (int k = 0; k < 100; k++) {
+			AtomicBoolean lundesdeusthreadnapasreussi = new AtomicBoolean(false);
+			List<Thread> threadList = new ArrayList<>();
+
+			for (int j = 0; j < 2; j++) {
+
+				class myRunnable implements Runnable {
+
+					int id;
+					int place;
+
+					public myRunnable(int id, int place) {
+						this.id = id;
+						this.place = place;
+					}
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						try {
+							lockService.placerVerrou("Johnny" + id, "OSS 117", "g5" + place);
+						} catch (WebApplicationException wae) {
+							lundesdeusthreadnapasreussi.set(true);
+						}
+					}
+				}
+				;
+
+				Runnable runnable = new myRunnable(j, k);
+				Thread monThread = new Thread(runnable);
+				monThread.start();
+				threadList.add(monThread);
+			}
+
+			// On attend la fin des threads
+			for (Thread thread : threadList) {
+				thread.join();
+			}
+			Assert.assertTrue(lundesdeusthreadnapasreussi.get());
+		}
+	}
+	
+	@Test()
+	public void placerLockPerformances() throws InterruptedException {
+
+			List<Thread> threadList = new ArrayList<>();
+			
+			Instant start = Instant.now();
+			AtomicInteger errorCounter = new AtomicInteger(0);
+			AtomicBoolean signatureDeMerde = new AtomicBoolean(false);
+			
+			for (int j = 0; j < 16; j++) {
+
+				class myRunnable implements Runnable {
+
+					int place;
+
+					public myRunnable(int place) {
+						this.place = place;
+					}
+
+					@Override
+					public void run() {
+						try{
+							// TODO Auto-generated method stub
+							Instant startplacerVerrou = Instant.now();
+							lockService.placerVerrou("Johnny" + place, "OSS 117", "g5" + place);							
+							Instant endplacerVerrou = Instant.now();
+							
+							long nbMillisecondesplacerVerrou = ChronoUnit.MILLIS.between(startplacerVerrou,endplacerVerrou);
+							
+							System.out.println("Le thread " + place + " a mis " + nbMillisecondesplacerVerrou + "ms à s'éxécuter.");
+							
+							if(nbMillisecondesplacerVerrou > 1000) {
+								// On remonte l'erreur 
+								System.out.println("Le thread " + place + " a mis trop de temps.");
+								errorCounter.incrementAndGet();
+							}
+						}
+						catch(Exception ex){
+							signatureDeMerde.set(true);
+						}
+					}
+				}
+				;
+				
+				Runnable runnable = new myRunnable(j);
+				Thread monThread = new Thread(runnable);
+				monThread.start();
+				threadList.add(monThread);
+			}
+
+			// On attend la fin des threads
+			for (Thread thread : threadList) {
+				thread.join();
+			}
+			Instant end = Instant.now();
+			
+			long nbMillisecondes = ChronoUnit.MILLIS.between(start,end);
+			
+			Assert.assertTrue(nbMillisecondes < 1000);
+			Assert.assertEquals(0, errorCounter.get());
+			Assert.assertFalse(signatureDeMerde.get());
+			
+		}
+	
 }

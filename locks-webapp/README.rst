@@ -98,13 +98,35 @@ du propriétaire et de la date courante d'expiration, sous la forme :
     Nota : Cette signature est calculée et vérifiable par des fonctions publiques (fournies avec le futur produit)
 
 
+Bug 6.0
+=======
+
+le PUT d'un verrou n'est plus idempotent !!
+
+
+
+
+
+
+
+
+
+Bug 6.1
+=======
+
+2 utilisateurs peuvent avoir des verrous sur la meme place ! (prouvé avec Jmeter)
+
+
+
+
+
 Story 7
 =======
 
-		Le service peut répondre de façon nominale à 8 requêtes PUT concernant des verrous 
+		Le service peut répondre de façon nominale à 16 requêtes PUT concernant des verrous 
 		de topics différents arrivant au service dans un intervalle d'1 seconde. 
-		Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 1/2 
-		secondes.
+		Le temps de réponse pour chacune des requêtes traitées nominalement ne doit pas excéder 1 
+		seconde.
 
 
 

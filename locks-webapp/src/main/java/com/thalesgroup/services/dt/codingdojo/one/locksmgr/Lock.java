@@ -26,7 +26,7 @@ public class Lock {
 	private Instant expirationDate;
 	
 	
-	private long signatureLock;
+	private Long signatureLock;
 
 	private static Long compteur = 0L;
 	private static int expirationDuration = 1800;
@@ -42,12 +42,6 @@ public class Lock {
 		this.place = place;
 		this.creationDate = Instant.now();
 		this.expirationDate = creationDate.plusSeconds(expirationDuration);
-		// «SPECTACLE_!_PLACE_!_OWNER_!_AAAAMMJJHHmmss.mse »
-		ZonedDateTime creationDt = ZonedDateTime.ofInstant(this.creationDate,ZoneOffset.UTC);
-		String dataToSign = "" + this.spectacleName+ "_!_"+ this.place +"_!_" + this.owner+"_!_" + DateTimeFormatter.ofPattern("YYYYMMddHHmmss").format(creationDt);
-
-		this.signatureLock = SignatureHelper.signatureOf(dataToSign);
-
 	}
 
 	private synchronized static Long nextId() {
@@ -76,6 +70,14 @@ public class Lock {
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+	
+	public void sign(){
+		// «SPECTACLE_!_PLACE_!_OWNER_!_AAAAMMJJHHmmss.mse »
+		ZonedDateTime creationDt = ZonedDateTime.ofInstant(this.creationDate,ZoneOffset.UTC);
+		String dataToSign = "" + this.spectacleName+ "_!_"+ this.place +"_!_" + this.owner+"_!_" + DateTimeFormatter.ofPattern("YYYYMMddHHmmss").format(creationDt);
+
+		this.signatureLock = SignatureHelper.signatureOf(dataToSign);
 	}
 
 	@Override
@@ -143,7 +145,7 @@ public class Lock {
 		this.expirationDate = expirationDate;
 	}
 
-	public long getSignature() {
+	public Long getSignature() {
 		return this.signatureLock;
 	}
 

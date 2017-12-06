@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.WebApplicationException;
 
@@ -14,6 +15,7 @@ public class LockServiceImpl implements LockService {
 	
 	//Map<"spectacleName",Map<"placeName",Lock>>
 	private static Map<String,Spectacle> store = new HashMap<>();
+	private static AtomicInteger signEnCours = new AtomicInteger(0);
 	
 /*
 	@Override
@@ -33,28 +35,52 @@ public class LockServiceImpl implements LockService {
 	@Override
 	public Lock placerVerrou(String userName, String spectacleName, String placeName) {
 		Lock lock;
-		
-		if(!store.containsKey(spectacleName)){
-			//Le spectacle n'existe pas 
-			lock = new Lock(userName,spectacleName,placeName);
-			Spectacle spectacle = new Spectacle();
-			spectacle.setLockForPlace(placeName, lock);
-			store.put(spectacleName, spectacle);
-		}
-		else{
-			lock = store.get(spectacleName).getLockForPlace(placeName);
-			if(lock == null){
-				//Le spectacle existe mais la place est libre 
+			
+		synchronized(this){
+			if(!store.containsKey(spectacleName)){
+				//Le spectacle n'existe pas 
+				
 				lock = new Lock(userName,spectacleName,placeName);
-				store.get(spectacleName).setLockForPlace(placeName, lock);
-				store.put(spectacleName, store.get(spectacleName));
+				Spectacle spectacle = new Spectacle();
+				spectacle.setLockForPlace(placeName, lock);
+				store.put(spectacleName, spectacle);
 			}
 			else{
-				//Le spectacle existe et la place est occupée
-				if(lock.getOwner() != userName){
-					throw new WebApplicationException(HttpStatus.CONFLICT_409);
+				lock = store.get(spectacleName).getLockForPlace(placeName);
+				if(lock == null){
+					//Le spectacle existe mais la place est libre 
+					lock = new Lock(userName,spectacleName,placeName);
+					store.get(spectacleName).setLockForPlace(placeName, lock);
+					store.put(spectacleName, store.get(spectacleName));
+				}
+				else{
+					//Le spectacle existe et la place est occupée
+					if(!lock.getOwner().equals(userName)){
+						throw new WebApplicationException(HttpStatus.CONFLICT_409);
+					}
 				}
 			}
+		}
+		
+		if(lock.getSignature() == null ){
+			boolean jepeuxsigner = false;
+			while (!jepeuxsigner){
+				synchronized (signEnCours) {
+					if (signEnCours.get() < 2){
+						signEnCours.incrementAndGet();
+						jepeuxsigner = true;
+					}
+				}
+				if (!jepeuxsigner){
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+			
+			lock.sign();
+			signEnCours.decrementAndGet();
 		}
 		return lock;
 	};
