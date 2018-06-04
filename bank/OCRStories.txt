@@ -1,0 +1,156 @@
+
+« Nous travaillons dans une banque, et nous avons investi dans une machine capable de lire les numéros de comptes. Cette machine devrait à terme réduire la saisie manuelle et améliorer notre productivité. Il y a cependant un souci avec son format de sortie. Elle produit les numéros de compte sous le format suivant :    
+     _ 
+  |  _|
+  |  _|
+
+Chaque caractère est transcrit sous forme d'une matrice de 9 signes ( espace, barre verticale ou barre horizontale)
+Pouvez-vous lire ces nombres (sur 9 chiffres maximum), et les retourner sous forme d’entier ? »
+
+
+
+Story 0a : lorsque je lis un fichier de test nominal quelconque, je retourne un nombre compris entre 0 et 1 000 000 000. Nota : ici on n'a pas de contrainte sur le lien entre ce nombre et le contenu du fichier !
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 0b : lorsque je lis un fichier vide, je retourne une exception.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 1 : lorsque je lis un fichier de test contenant exactement la représentation d'1 chiffre, je retourne le chiffre contenu dans le fichier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 2 : lorsque je lis un fichier de test contenant la representation brute s'un nombre, je retourne le nombre contenu dans le fichier.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 3 : Calcul de checksum  : ( Somme de i = 1 à 9 de i * (chiffre à la position i) ) mod 11 = 0 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 4 : Autocorrection si un seul signe de matrice est incorrect 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 5 : Autocorrection avec distance minimale, sans utilisation du checksum (failure si ex-aeco)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Story 6 : Autocorrection avec distance minimale + contrôle du checksum
+
+
